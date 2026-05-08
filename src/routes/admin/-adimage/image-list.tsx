@@ -25,7 +25,6 @@ export const ImageList = ({ page }: { page: number }) => {
 			setCopiedUrl("");
 		}, 1500);
 	};
-
 	return (
 		<div className="grid grid-cols-4 gap-6">
 			{images.data?.items?.map((item) => (
