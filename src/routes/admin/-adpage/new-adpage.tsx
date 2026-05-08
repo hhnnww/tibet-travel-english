@@ -6,9 +6,11 @@ import { orpc } from "#/orpc/client";
 export const NewAdpageButton = () => {
 	const qc = useQueryClient();
 	const newMutation = useMutation(
-		orpc.adpageAdd.mutationOptions({
+		orpc.adpageRoute.list.mutationOptions({
 			onSuccess: async () =>
-				await qc.invalidateQueries(orpc.adpageList.queryOptions({ input: {} })),
+				await qc.invalidateQueries(
+					orpc.adpageRoute.list.queryOptions({ input: {} }),
+				),
 		}),
 	);
 

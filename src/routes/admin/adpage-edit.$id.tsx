@@ -9,7 +9,7 @@ export const Route = createFileRoute("/admin/adpage-edit/$id")({
 	component: RouteComponent,
 	loader: async ({ context, params }) => {
 		await context.queryClient.prefetchQuery(
-			orpc.adpageGet.queryOptions({
+			orpc.adpageRoute.get.queryOptions({
 				input: {
 					id: Number(params.id),
 				},
@@ -17,8 +17,8 @@ export const Route = createFileRoute("/admin/adpage-edit/$id")({
 		);
 
 		await context.queryClient.prefetchQuery(
-			orpc.adreplyList.queryOptions({
-				input: { pageid: Number(params.id) },
+			orpc.AdReplyRoute.list.queryOptions({
+				input: { pageId: Number(params.id) },
 			}),
 		);
 	},
@@ -27,12 +27,13 @@ export const Route = createFileRoute("/admin/adpage-edit/$id")({
 function RouteComponent() {
 	const params = Route.useParams();
 	const adReplys = useQuery(
-		orpc.adreplyList.queryOptions({
+		orpc.AdReplyRoute.list.queryOptions({
 			input: {
-				pageid: Number(params.id),
+				pageId: Number(params.id),
 			},
 		}),
 	);
+
 	return (
 		<div className="flex flex-col items-start gap-12 w-full">
 			<AdPageEditForm id={Number(params.id)} />

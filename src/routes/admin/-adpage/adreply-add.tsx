@@ -7,10 +7,10 @@ import { orpc } from "#/orpc/client";
 export const AdreplyAdd = ({ pageid }: { pageid: number }) => {
 	const qc = useQueryClient();
 	const addMustation = useMutation(
-		orpc.adreplyAdd.mutationOptions({
+		orpc.AdReplyRoute.new.mutationOptions({
 			onSuccess: async () => {
 				await qc.invalidateQueries(
-					orpc.adreplyList.queryOptions({ input: { pageid: pageid } }),
+					orpc.AdReplyRoute.list.queryOptions({ input: { pageId: pageid } }),
 				);
 			},
 		}),
@@ -19,7 +19,7 @@ export const AdreplyAdd = ({ pageid }: { pageid: number }) => {
 	return (
 		<Button
 			onClick={async () => {
-				await addMustation.mutateAsync({ pageid: pageid });
+				await addMustation.mutateAsync({ pageId: pageid });
 			}}
 		>
 			{addMustation.isPending ? (

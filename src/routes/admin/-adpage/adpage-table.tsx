@@ -20,7 +20,9 @@ import { orpc } from "#/orpc/client";
 import { NewAdpageButton } from "./new-adpage";
 
 export const AdPageTable = () => {
-	const adpagelist = useQuery(orpc.adpageList.queryOptions({ input: {} }));
+	const adpagelist = useQuery(
+		orpc.adpageRoute.list.queryOptions({ input: {} }),
+	);
 
 	return (
 		<Card className="w-full">

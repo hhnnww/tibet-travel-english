@@ -16,9 +16,11 @@ import { TiptapField } from "#/lib/tiptap";
 import { orpc } from "#/orpc/client";
 
 export const AdPageEditForm = ({ id }: { id: number }) => {
-	const adpage = useQuery(orpc.adpageGet.queryOptions({ input: { id: id } }));
+	const adpage = useQuery(
+		orpc.adpageRoute.get.queryOptions({ input: { id: id } }),
+	);
 
-	const updateAdpage = useMutation(orpc.adpageUpdate.mutationOptions());
+	const updateAdpage = useMutation(orpc.adpageRoute.update.mutationOptions());
 	const form = useForm({
 		defaultValues: adpage.data,
 		onSubmit: async ({ value }) => {

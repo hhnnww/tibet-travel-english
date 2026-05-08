@@ -23,7 +23,7 @@ export const AdReplyEditForm = ({
 	adreply: typeof AdReply.$inferSelect;
 	index: number;
 }) => {
-	const updateAdreply = useMutation(orpc.adreplyUpdate.mutationOptions());
+	const updateAdreply = useMutation(orpc.AdReplyRoute.update.mutationOptions());
 	const form = useForm({
 		defaultValues: adreply,
 		onSubmit: async ({ value }) => {

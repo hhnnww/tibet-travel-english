@@ -6,7 +6,7 @@ export const Route = createFileRoute("/admin/adpage")({
 	component: RouteComponent,
 	loader: async ({ context }) => {
 		context.queryClient.prefetchQuery(
-			orpc.adpageList.queryOptions({ input: {} }),
+			orpc.adpageRoute.list.queryOptions({ input: {} }),
 		);
 	},
 });
