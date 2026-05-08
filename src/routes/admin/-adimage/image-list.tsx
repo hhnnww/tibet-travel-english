@@ -1,14 +1,16 @@
-import { useQuery } from "@tanstack/react-query";
-import { Check, Copy } from "lucide-react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { Check, Copy, Trash } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "#/components/ui/button";
 import { Input } from "#/components/ui/input";
-
+import { Spinner } from "#/components/ui/spinner";
 import { orpc } from "#/orpc/client";
 
 export const ImageList = ({ page }: { page: number }) => {
 	const [copiedUrl, setCopiedUrl] = useState("");
+
+	const qc = useQueryClient();
 
 	const images = useQuery(
 		orpc.imagesRouter.list.queryOptions({
@@ -18,51 +20,88 @@ export const ImageList = ({ page }: { page: number }) => {
 		}),
 	);
 
+	const deleteMutation = useMutation(
+		orpc.imagesRouter.delete.mutationOptions({
+			onSuccess: async () => {
+				await qc.invalidateQueries(
+					orpc.imagesRouter.list.queryOptions({
+						input: { page },
+					}),
+				);
+			},
+		}),
+	);
+
 	const handleCopy = async (url: string) => {
 		await navigator.clipboard.writeText(url);
+
 		setCopiedUrl(url);
+
 		setTimeout(() => {
 			setCopiedUrl("");
 		}, 1500);
 	};
+
 	return (
 		<div className="grid grid-cols-4 gap-6">
-			{images.data?.items?.map((item) => (
-				<div className="flex flex-col gap-2" key={item.key}>
-					<div className="flex aspect-square items-center justify-center overflow-hidden rounded-md border bg-muted">
-						<img
-							src={item.url}
-							alt={item.key}
-							className="h-full w-full object-cover"
-						/>
-					</div>
+			{images.data?.items?.map((item) => {
+				const isDeleting =
+					deleteMutation.isPending &&
+					deleteMutation.variables?.key === item.key;
 
-					<div className="flex gap-2">
-						<Input
-							value={item.url}
-							readOnly
-							onClick={(event) => {
-								event.currentTarget.select();
-							}}
-						/>
+				return (
+					<div key={item.key}>
+						<div className="flex flex-col gap-2">
+							<div className="flex aspect-square items-center justify-center overflow-hidden rounded-md border bg-muted">
+								<img
+									src={item.url}
+									alt={item.key}
+									className="h-full w-full object-cover"
+								/>
+							</div>
 
-						<Button
-							type="button"
-							size="icon"
-							variant={"ghost"}
-							onClick={() => {
-								handleCopy(item.url);
-							}}
-						>
-							{copiedUrl === item.url ? (
-								<Check className="size-4" />
-							) : (
-								<Copy className="size-4" />
-							)}
-						</Button>
+							<div className="flex gap-2">
+								<Input
+									value={item.url}
+									readOnly
+									onClick={(event) => {
+										event.currentTarget.select();
+									}}
+								/>
+
+								<Button
+									type="button"
+									size="icon"
+									variant="ghost"
+									onClick={() => {
+										handleCopy(item.url);
+									}}
+								>
+									{copiedUrl === item.url ? (
+										<Check className="size-4" />
+									) : (
+										<Copy className="size-4" />
+									)}
+								</Button>
+							</div>
+						</div>
+
+						<div className="mt-2">
+							<Button
+								disabled={isDeleting}
+								onClick={async () => {
+									await deleteMutation.mutateAsync({
+										key: item.key as string,
+									});
+								}}
+							>
+								{isDeleting ? <Spinner data-icon="inline-start" /> : <Trash />}
+								delete
+							</Button>
+						</div>
 					</div>
-				</div>
-			))}
+				);
+			})}
 		</div>
 	);
 };

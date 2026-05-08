@@ -10,10 +10,18 @@ import { orpc } from "#/orpc/client";
 
 export function ImageUpload() {
 	const [isUploading, setIsUploading] = useState(false);
+
+	const [uploadedCount, setUploadedCount] = useState(0);
+	const [totalCount, setTotalCount] = useState(0);
+
 	const qc = useQueryClient();
+
+	// 单张上传
 	const uploadImage = useCallback(async (file: File) => {
 		const compressedFile = await compressImage(file);
+
 		const filename = `${crypto.randomUUID()}.webp`;
+
 		const { uploadUrl, fileUrl } = await getUploadUrl({
 			data: {
 				filename,
@@ -21,8 +29,7 @@ export function ImageUpload() {
 			},
 		});
 
-		// 上传到 R2
-		await fetch(uploadUrl, {
+		const res = await fetch(uploadUrl, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "image/webp",
@@ -30,27 +37,42 @@ export function ImageUpload() {
 			body: compressedFile,
 		});
 
+		if (!res.ok) {
+			throw new Error(await res.text());
+		}
+
 		return fileUrl;
 	}, []);
 
-	// 刷新图片列表
+	// 刷新列表
 	const refreshImages = useCallback(async () => {
 		await qc.invalidateQueries(
-			orpc.imagesRouter.list.queryOptions({ input: { page: 1 } }),
+			orpc.imagesRouter.list.queryOptions({
+				input: { page: 1 },
+			}),
 		);
 	}, [qc]);
 
-	// 处理上传
-	const handleFileUpload = useCallback(
-		async (file: File) => {
+	// 批量上传
+	const handleFilesUpload = useCallback(
+		async (files: File[]) => {
+			if (!files.length) return;
+
 			try {
 				setIsUploading(true);
 
-				const url = await uploadImage(file);
+				setUploadedCount(0);
+				setTotalCount(files.length);
 
-				if (url) {
-					await refreshImages();
-				}
+				await Promise.all(
+					files.map(async (file) => {
+						await uploadImage(file);
+
+						setUploadedCount((prev) => prev + 1);
+					}),
+				);
+
+				await refreshImages();
 			} finally {
 				setIsUploading(false);
 			}
@@ -58,45 +80,65 @@ export function ImageUpload() {
 		[uploadImage, refreshImages],
 	);
 
-	// 文件选择上传
+	// 文件选择
 	const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-		const file = event.target.files?.[0];
-		if (!file) return;
-		await handleFileUpload(file);
+		const files = Array.from(event.target.files || []);
+
+		if (!files.length) return;
+
+		await handleFilesUpload(files);
+
+		// 允许重复选择同一个文件
+		event.target.value = "";
 	};
 
-	// Ctrl + V 粘贴上传
+	// Ctrl + V 粘贴批量上传
 	useEffect(() => {
 		const handlePaste = async (event: ClipboardEvent) => {
 			const items = event.clipboardData?.items;
+
 			if (!items) return;
+
+			const files: File[] = [];
+
 			for (const item of items) {
 				if (item.type.startsWith("image/")) {
 					const file = item.getAsFile();
-					if (!file) return;
-					event.preventDefault();
-					await handleFileUpload(file);
-					break;
+
+					if (file) {
+						files.push(file);
+					}
 				}
 			}
+
+			if (!files.length) return;
+
+			event.preventDefault();
+
+			await handleFilesUpload(files);
 		};
+
 		window.addEventListener("paste", handlePaste);
+
 		return () => {
 			window.removeEventListener("paste", handlePaste);
 		};
-	}, [handleFileUpload]);
+	}, [handleFilesUpload]);
 
 	return (
-		<div className="flex gap-4 flex-col items-start">
+		<div className="flex flex-col items-start gap-4">
 			<Input
 				type="file"
 				accept="image/*"
+				multiple
 				onChange={handleUpload}
 				disabled={isUploading}
 			/>
 
-			<p className="text-sm">
-				{isUploading ? "上传中" : "可以直接粘贴上传图片"}
+			<p className="text-sm text-muted-foreground">
+				{isUploading
+					? `上传中 ${uploadedCount} / ${totalCount}`
+					: "支持批量上传 / Ctrl + V 粘贴上传"}
 			</p>
 		</div>
 	);

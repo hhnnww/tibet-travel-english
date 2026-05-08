@@ -1,7 +1,12 @@
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import {
+	DeleteObjectCommand,
+	PutObjectCommand,
+	S3Client,
+} from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { createServerFn } from "@tanstack/react-start";
 import { nanoid } from "nanoid";
+import z from "zod";
 
 export const r2 = new S3Client({
 	region: "auto",
@@ -36,5 +41,24 @@ export const getUploadUrl = createServerFn({
 		return {
 			uploadUrl,
 			fileUrl,
+		};
+	});
+
+export const deleteImage = createServerFn({
+	method: "POST",
+})
+	.inputValidator(
+		z.object({
+			key: z.string(),
+		}),
+	)
+	.handler(async ({ data }) => {
+		const command = new DeleteObjectCommand({
+			Bucket: process.env.R2_BUCKET as string,
+			Key: data.key,
+		});
+		await r2.send(command);
+		return {
+			success: true,
 		};
 	});
