@@ -12,15 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-query'
-import { Route as DemoOrpcTodoRouteImport } from './routes/demo/orpc-todo'
-import { Route as DemoDrizzleRouteImport } from './routes/demo/drizzle'
 import { Route as AuthPathnameRouteImport } from './routes/auth.$pathname'
 import { Route as ApiSplatRouteImport } from './routes/api.$'
 import { Route as AdminAdpageRouteImport } from './routes/admin/adpage'
 import { Route as AccountPathnameRouteImport } from './routes/account.$pathname'
-import { Route as DemoFormSimpleRouteImport } from './routes/demo/form.simple'
-import { Route as DemoFormAddressRouteImport } from './routes/demo/form.address'
 import { Route as ApiRpcSplatRouteImport } from './routes/api.rpc.$'
 import { Route as AdminImagesPageRouteImport } from './routes/admin/images.$page'
 import { Route as AdminAdpageEditIdRouteImport } from './routes/admin/adpage-edit.$id'
@@ -38,21 +33,6 @@ const AdminRouteRoute = AdminRouteRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
-  id: '/demo/tanstack-query',
-  path: '/demo/tanstack-query',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoOrpcTodoRoute = DemoOrpcTodoRouteImport.update({
-  id: '/demo/orpc-todo',
-  path: '/demo/orpc-todo',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoDrizzleRoute = DemoDrizzleRouteImport.update({
-  id: '/demo/drizzle',
-  path: '/demo/drizzle',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthPathnameRoute = AuthPathnameRouteImport.update({
@@ -73,16 +53,6 @@ const AdminAdpageRoute = AdminAdpageRouteImport.update({
 const AccountPathnameRoute = AccountPathnameRouteImport.update({
   id: '/account/$pathname',
   path: '/account/$pathname',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoFormSimpleRoute = DemoFormSimpleRouteImport.update({
-  id: '/demo/form/simple',
-  path: '/demo/form/simple',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoFormAddressRoute = DemoFormAddressRouteImport.update({
-  id: '/demo/form/address',
-  path: '/demo/form/address',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiRpcSplatRoute = ApiRpcSplatRouteImport.update({
@@ -109,14 +79,9 @@ export interface FileRoutesByFullPath {
   '/admin/adpage': typeof AdminAdpageRoute
   '/api/$': typeof ApiSplatRoute
   '/auth/$pathname': typeof AuthPathnameRoute
-  '/demo/drizzle': typeof DemoDrizzleRoute
-  '/demo/orpc-todo': typeof DemoOrpcTodoRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/admin/adpage-edit/$id': typeof AdminAdpageEditIdRoute
   '/admin/images/$page': typeof AdminImagesPageRoute
   '/api/rpc/$': typeof ApiRpcSplatRoute
-  '/demo/form/address': typeof DemoFormAddressRoute
-  '/demo/form/simple': typeof DemoFormSimpleRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -126,14 +91,9 @@ export interface FileRoutesByTo {
   '/admin/adpage': typeof AdminAdpageRoute
   '/api/$': typeof ApiSplatRoute
   '/auth/$pathname': typeof AuthPathnameRoute
-  '/demo/drizzle': typeof DemoDrizzleRoute
-  '/demo/orpc-todo': typeof DemoOrpcTodoRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/admin/adpage-edit/$id': typeof AdminAdpageEditIdRoute
   '/admin/images/$page': typeof AdminImagesPageRoute
   '/api/rpc/$': typeof ApiRpcSplatRoute
-  '/demo/form/address': typeof DemoFormAddressRoute
-  '/demo/form/simple': typeof DemoFormSimpleRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -144,14 +104,9 @@ export interface FileRoutesById {
   '/admin/adpage': typeof AdminAdpageRoute
   '/api/$': typeof ApiSplatRoute
   '/auth/$pathname': typeof AuthPathnameRoute
-  '/demo/drizzle': typeof DemoDrizzleRoute
-  '/demo/orpc-todo': typeof DemoOrpcTodoRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/admin/adpage-edit/$id': typeof AdminAdpageEditIdRoute
   '/admin/images/$page': typeof AdminImagesPageRoute
   '/api/rpc/$': typeof ApiRpcSplatRoute
-  '/demo/form/address': typeof DemoFormAddressRoute
-  '/demo/form/simple': typeof DemoFormSimpleRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -163,14 +118,9 @@ export interface FileRouteTypes {
     | '/admin/adpage'
     | '/api/$'
     | '/auth/$pathname'
-    | '/demo/drizzle'
-    | '/demo/orpc-todo'
-    | '/demo/tanstack-query'
     | '/admin/adpage-edit/$id'
     | '/admin/images/$page'
     | '/api/rpc/$'
-    | '/demo/form/address'
-    | '/demo/form/simple'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -180,14 +130,9 @@ export interface FileRouteTypes {
     | '/admin/adpage'
     | '/api/$'
     | '/auth/$pathname'
-    | '/demo/drizzle'
-    | '/demo/orpc-todo'
-    | '/demo/tanstack-query'
     | '/admin/adpage-edit/$id'
     | '/admin/images/$page'
     | '/api/rpc/$'
-    | '/demo/form/address'
-    | '/demo/form/simple'
   id:
     | '__root__'
     | '/'
@@ -197,14 +142,9 @@ export interface FileRouteTypes {
     | '/admin/adpage'
     | '/api/$'
     | '/auth/$pathname'
-    | '/demo/drizzle'
-    | '/demo/orpc-todo'
-    | '/demo/tanstack-query'
     | '/admin/adpage-edit/$id'
     | '/admin/images/$page'
     | '/api/rpc/$'
-    | '/demo/form/address'
-    | '/demo/form/simple'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -214,12 +154,7 @@ export interface RootRouteChildren {
   AccountPathnameRoute: typeof AccountPathnameRoute
   ApiSplatRoute: typeof ApiSplatRoute
   AuthPathnameRoute: typeof AuthPathnameRoute
-  DemoDrizzleRoute: typeof DemoDrizzleRoute
-  DemoOrpcTodoRoute: typeof DemoOrpcTodoRoute
-  DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
   ApiRpcSplatRoute: typeof ApiRpcSplatRoute
-  DemoFormAddressRoute: typeof DemoFormAddressRoute
-  DemoFormSimpleRoute: typeof DemoFormSimpleRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -243,27 +178,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/tanstack-query': {
-      id: '/demo/tanstack-query'
-      path: '/demo/tanstack-query'
-      fullPath: '/demo/tanstack-query'
-      preLoaderRoute: typeof DemoTanstackQueryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/orpc-todo': {
-      id: '/demo/orpc-todo'
-      path: '/demo/orpc-todo'
-      fullPath: '/demo/orpc-todo'
-      preLoaderRoute: typeof DemoOrpcTodoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/drizzle': {
-      id: '/demo/drizzle'
-      path: '/demo/drizzle'
-      fullPath: '/demo/drizzle'
-      preLoaderRoute: typeof DemoDrizzleRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/$pathname': {
@@ -292,20 +206,6 @@ declare module '@tanstack/react-router' {
       path: '/account/$pathname'
       fullPath: '/account/$pathname'
       preLoaderRoute: typeof AccountPathnameRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/form/simple': {
-      id: '/demo/form/simple'
-      path: '/demo/form/simple'
-      fullPath: '/demo/form/simple'
-      preLoaderRoute: typeof DemoFormSimpleRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/form/address': {
-      id: '/demo/form/address'
-      path: '/demo/form/address'
-      fullPath: '/demo/form/address'
-      preLoaderRoute: typeof DemoFormAddressRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/rpc/$': {
@@ -355,12 +255,7 @@ const rootRouteChildren: RootRouteChildren = {
   AccountPathnameRoute: AccountPathnameRoute,
   ApiSplatRoute: ApiSplatRoute,
   AuthPathnameRoute: AuthPathnameRoute,
-  DemoDrizzleRoute: DemoDrizzleRoute,
-  DemoOrpcTodoRoute: DemoOrpcTodoRoute,
-  DemoTanstackQueryRoute: DemoTanstackQueryRoute,
   ApiRpcSplatRoute: ApiRpcSplatRoute,
-  DemoFormAddressRoute: DemoFormAddressRoute,
-  DemoFormSimpleRoute: DemoFormSimpleRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,1 +1,16 @@
-{"projectId":"prj_IXCqfGhNS6VGXMwxhPBGZqh3hotu","orgId":"team_2J9nhYerGVy45Ax6bzVRX2ga","projectName":"tibet-travel-english"}
+{
+  "projectId": "prj_IXCqfGhNS6VGXMwxhPBGZqh3hotu",
+  "orgId": "team_2J9nhYerGVy45Ax6bzVRX2ga",
+  "projectName": "tibet-travel-english",
+  "settings": {
+    "createdAt": 1777425936019,
+    "framework": "tanstack-start",
+    "devCommand": null,
+    "installCommand": "npm install --force",
+    "buildCommand": null,
+    "outputDirectory": null,
+    "rootDirectory": null,
+    "directoryListing": false,
+    "nodeVersion": "24.x"
+  }
+}
