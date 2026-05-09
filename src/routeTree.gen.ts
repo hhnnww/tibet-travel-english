@@ -9,11 +9,11 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as AboutRouteImport } from './routes/about'
 import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthPathnameRouteImport } from './routes/auth.$pathname'
 import { Route as ApiSplatRouteImport } from './routes/api.$'
+import { Route as AdpagePageidRouteImport } from './routes/adpage/$pageid'
 import { Route as AdminAdsalerRouteImport } from './routes/admin/adsaler'
 import { Route as AdminAdpageRouteImport } from './routes/admin/adpage'
 import { Route as AccountPathnameRouteImport } from './routes/account.$pathname'
@@ -21,11 +21,6 @@ import { Route as ApiRpcSplatRouteImport } from './routes/api.rpc.$'
 import { Route as AdminImagesPageRouteImport } from './routes/admin/images.$page'
 import { Route as AdminAdpageEditIdRouteImport } from './routes/admin/adpage-edit.$id'
 
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AdminRouteRoute = AdminRouteRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -44,6 +39,11 @@ const AuthPathnameRoute = AuthPathnameRouteImport.update({
 const ApiSplatRoute = ApiSplatRouteImport.update({
   id: '/api/$',
   path: '/api/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdpagePageidRoute = AdpagePageidRouteImport.update({
+  id: '/adpage/$pageid',
+  path: '/adpage/$pageid',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminAdsalerRoute = AdminAdsalerRouteImport.update({
@@ -80,10 +80,10 @@ const AdminAdpageEditIdRoute = AdminAdpageEditIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRouteWithChildren
-  '/about': typeof AboutRoute
   '/account/$pathname': typeof AccountPathnameRoute
   '/admin/adpage': typeof AdminAdpageRoute
   '/admin/adsaler': typeof AdminAdsalerRoute
+  '/adpage/$pageid': typeof AdpagePageidRoute
   '/api/$': typeof ApiSplatRoute
   '/auth/$pathname': typeof AuthPathnameRoute
   '/admin/adpage-edit/$id': typeof AdminAdpageEditIdRoute
@@ -93,10 +93,10 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRouteWithChildren
-  '/about': typeof AboutRoute
   '/account/$pathname': typeof AccountPathnameRoute
   '/admin/adpage': typeof AdminAdpageRoute
   '/admin/adsaler': typeof AdminAdsalerRoute
+  '/adpage/$pageid': typeof AdpagePageidRoute
   '/api/$': typeof ApiSplatRoute
   '/auth/$pathname': typeof AuthPathnameRoute
   '/admin/adpage-edit/$id': typeof AdminAdpageEditIdRoute
@@ -107,10 +107,10 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRouteWithChildren
-  '/about': typeof AboutRoute
   '/account/$pathname': typeof AccountPathnameRoute
   '/admin/adpage': typeof AdminAdpageRoute
   '/admin/adsaler': typeof AdminAdsalerRoute
+  '/adpage/$pageid': typeof AdpagePageidRoute
   '/api/$': typeof ApiSplatRoute
   '/auth/$pathname': typeof AuthPathnameRoute
   '/admin/adpage-edit/$id': typeof AdminAdpageEditIdRoute
@@ -122,10 +122,10 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
-    | '/about'
     | '/account/$pathname'
     | '/admin/adpage'
     | '/admin/adsaler'
+    | '/adpage/$pageid'
     | '/api/$'
     | '/auth/$pathname'
     | '/admin/adpage-edit/$id'
@@ -135,10 +135,10 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/admin'
-    | '/about'
     | '/account/$pathname'
     | '/admin/adpage'
     | '/admin/adsaler'
+    | '/adpage/$pageid'
     | '/api/$'
     | '/auth/$pathname'
     | '/admin/adpage-edit/$id'
@@ -148,10 +148,10 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/admin'
-    | '/about'
     | '/account/$pathname'
     | '/admin/adpage'
     | '/admin/adsaler'
+    | '/adpage/$pageid'
     | '/api/$'
     | '/auth/$pathname'
     | '/admin/adpage-edit/$id'
@@ -162,8 +162,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRouteRoute: typeof AdminRouteRouteWithChildren
-  AboutRoute: typeof AboutRoute
   AccountPathnameRoute: typeof AccountPathnameRoute
+  AdpagePageidRoute: typeof AdpagePageidRoute
   ApiSplatRoute: typeof ApiSplatRoute
   AuthPathnameRoute: typeof AuthPathnameRoute
   ApiRpcSplatRoute: typeof ApiRpcSplatRoute
@@ -171,13 +171,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/admin': {
       id: '/admin'
       path: '/admin'
@@ -204,6 +197,13 @@ declare module '@tanstack/react-router' {
       path: '/api/$'
       fullPath: '/api/$'
       preLoaderRoute: typeof ApiSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/adpage/$pageid': {
+      id: '/adpage/$pageid'
+      path: '/adpage/$pageid'
+      fullPath: '/adpage/$pageid'
+      preLoaderRoute: typeof AdpagePageidRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/adsaler': {
@@ -272,8 +272,8 @@ const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRouteRoute: AdminRouteRouteWithChildren,
-  AboutRoute: AboutRoute,
   AccountPathnameRoute: AccountPathnameRoute,
+  AdpagePageidRoute: AdpagePageidRoute,
   ApiSplatRoute: ApiSplatRoute,
   AuthPathnameRoute: AuthPathnameRoute,
   ApiRpcSplatRoute: ApiRpcSplatRoute,

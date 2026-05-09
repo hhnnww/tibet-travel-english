@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import dayjs from "dayjs";
-import { PencilRuler } from "lucide-react";
+import { Eye, PencilRuler } from "lucide-react";
 import { Button } from "#/components/ui/button";
 import {
 	Card,
@@ -64,6 +64,18 @@ export const AdPageTable = () => {
 										</Link>
 										<AdpageDelete pageId={item.id} />
 									</div>
+								</TableCell>
+
+								<TableCell>
+									<Link
+										to="/adpage/$pageid"
+										params={{ pageid: String(item.id) }}
+									>
+										<Button>
+											<Eye />
+											预览
+										</Button>
+									</Link>
 								</TableCell>
 							</TableRow>
 						))}

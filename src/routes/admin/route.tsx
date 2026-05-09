@@ -4,12 +4,16 @@ import {
 	UserButton,
 } from "@neondatabase/neon-js/auth/react";
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
+import { useEffect } from "react";
 
 export const Route = createFileRoute("/admin")({
 	component: RouteComponent,
 });
 
 function RouteComponent() {
+	useEffect(() => {
+		localStorage.setItem("theme", "dark");
+	}, []);
 	return (
 		<>
 			<div className="flex justify-between items-center p-4">
