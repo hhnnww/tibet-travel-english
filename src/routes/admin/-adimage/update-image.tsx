@@ -1,98 +1,114 @@
-import { useQueryClient } from "@tanstack/react-query";
-import { useCallback, useEffect, useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { ImagePlus } from "lucide-react";
+import {
+	type ChangeEvent,
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
 
-import { Input } from "#/components/ui/input";
+import { Button } from "#/components/ui/button";
+import { Progress } from "#/components/ui/progress";
 
 import { compressImage } from "#/lib/compress-image";
-import { getUploadUrl } from "#/lib/r2";
 
 import { orpc } from "#/orpc/client";
 
 export function ImageUpload() {
-	const [isUploading, setIsUploading] = useState(false);
+	const qc = useQueryClient();
+
+	const inputRef = useRef<HTMLInputElement>(null);
 
 	const [uploadedCount, setUploadedCount] = useState(0);
 	const [totalCount, setTotalCount] = useState(0);
 
-	const qc = useQueryClient();
+	const progress = totalCount > 0 ? (uploadedCount / totalCount) * 100 : 0;
 
 	// 单张上传
-	const uploadImage = useCallback(async (file: File) => {
-		const compressedFile = await compressImage(file);
+	const uploadMutation = useMutation({
+		mutationFn: async (file: File) => {
+			const compressedFile = await compressImage(file);
 
-		const filename = `${crypto.randomUUID()}.webp`;
+			const filename = `${crypto.randomUUID()}.webp`;
 
-		const { uploadUrl, fileUrl } = await getUploadUrl({
-			data: {
-				filename,
-				contentType: "image/webp",
-			},
-		});
+			const { uploadUrl, fileUrl } =
+				await orpc.imagesRouter.get_upload_url.call({
+					filename,
+					contentType: "image/webp",
+				});
 
-		const res = await fetch(uploadUrl, {
-			method: "PUT",
-			headers: {
-				"Content-Type": "image/webp",
-			},
-			body: compressedFile,
-		});
+			const res = await fetch(uploadUrl, {
+				method: "PUT",
+				headers: {
+					"Content-Type": "image/webp",
+				},
+				body: compressedFile,
+			});
 
-		if (!res.ok) {
-			throw new Error(await res.text());
-		}
+			if (!res.ok) {
+				throw new Error(await res.text());
+			}
 
-		return fileUrl;
-	}, []);
-
-	// 刷新列表
-	const refreshImages = useCallback(async () => {
-		await qc.invalidateQueries(
-			orpc.imagesRouter.list.queryOptions({
-				input: { page: 1 },
-			}),
-		);
-	}, [qc]);
+			return fileUrl;
+		},
+	});
 
 	// 批量上传
-	const handleFilesUpload = useCallback(
-		async (files: File[]) => {
-			if (!files.length) return;
+	const batchUploadMutation = useMutation({
+		mutationFn: async (files: File[]) => {
+			setUploadedCount(0);
+			setTotalCount(files.length);
 
-			try {
-				setIsUploading(true);
+			const results = await Promise.all(
+				files.map(async (file) => {
+					const result = await uploadMutation.mutateAsync(file);
 
-				setUploadedCount(0);
-				setTotalCount(files.length);
+					setUploadedCount((prev) => prev + 1);
 
-				await Promise.all(
-					files.map(async (file) => {
-						await uploadImage(file);
+					return result;
+				}),
+			);
 
-						setUploadedCount((prev) => prev + 1);
-					}),
-				);
-
-				await refreshImages();
-			} finally {
-				setIsUploading(false);
-			}
+			return results;
 		},
-		[uploadImage, refreshImages],
-	);
 
-	// 文件选择
-	const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-		const files = Array.from(event.target.files || []);
+		onSuccess: async () => {
+			await qc.invalidateQueries(
+				orpc.imagesRouter.list.queryOptions({
+					input: { page: 1 },
+				}),
+			);
+		},
 
-		if (!files.length) return;
+		onSettled: () => {
+			setTimeout(() => {
+				setUploadedCount(0);
+				setTotalCount(0);
+			}, 600);
+		},
+	});
 
-		await handleFilesUpload(files);
-
-		// 允许重复选择同一个文件
-		event.target.value = "";
+	// 打开文件选择
+	const openFilePicker = () => {
+		inputRef.current?.click();
 	};
 
-	// Ctrl + V 粘贴批量上传
+	// 文件上传
+	const handleUpload = useCallback(
+		async (event: ChangeEvent<HTMLInputElement>) => {
+			const files = Array.from(event.target.files || []);
+
+			if (!files.length) return;
+
+			await batchUploadMutation.mutateAsync(files);
+
+			event.target.value = "";
+		},
+		[batchUploadMutation],
+	);
+
+	// Ctrl + V 粘贴上传
 	useEffect(() => {
 		const handlePaste = async (event: ClipboardEvent) => {
 			const items = event.clipboardData?.items;
@@ -115,7 +131,7 @@ export function ImageUpload() {
 
 			event.preventDefault();
 
-			await handleFilesUpload(files);
+			await batchUploadMutation.mutateAsync(files);
 		};
 
 		window.addEventListener("paste", handlePaste);
@@ -123,23 +139,39 @@ export function ImageUpload() {
 		return () => {
 			window.removeEventListener("paste", handlePaste);
 		};
-	}, [handleFilesUpload]);
+	}, [batchUploadMutation]);
 
 	return (
-		<div className="flex flex-col items-start gap-4">
-			<Input
+		<div className="flex w-full flex-col gap-3 items-start">
+			<input
+				ref={inputRef}
 				type="file"
 				accept="image/*"
 				multiple
+				className="hidden"
 				onChange={handleUpload}
-				disabled={isUploading}
 			/>
 
-			<p className="text-sm text-muted-foreground">
-				{isUploading
-					? `上传中 ${uploadedCount} / ${totalCount}`
-					: "支持批量上传 / Ctrl + V 粘贴上传"}
-			</p>
+			<Button
+				type="button"
+				onClick={openFilePicker}
+				disabled={batchUploadMutation.isPending}
+				className="gap-2"
+			>
+				<ImagePlus className="size-4" />
+
+				{batchUploadMutation.isPending ? "上传中..." : "上传图片"}
+			</Button>
+
+			{batchUploadMutation.isPending && (
+				<div className="space-y-2 w-full">
+					<Progress value={progress} />
+
+					<div className="text-muted-foreground text-xs">
+						{uploadedCount} / {totalCount}
+					</div>
+				</div>
+			)}
 		</div>
 	);
 }

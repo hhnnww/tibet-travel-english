@@ -1,11 +1,11 @@
 import {
 	ListObjectsV2Command,
 	type ListObjectsV2CommandOutput,
+	PutObjectCommand,
 } from "@aws-sdk/client-s3";
-
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { os } from "@orpc/server";
 import * as z from "zod";
-
 import { deleteImage, r2 } from "#/lib/r2";
 
 export const imagesRouter = {
@@ -75,6 +75,36 @@ export const imagesRouter = {
 				pageSize: input.limit,
 				total: sorted.length,
 				hasMore: end < sorted.length,
+			};
+		}),
+
+	get_upload_url: os
+		.input(z.object({ filename: z.string(), contentType: z.string() }))
+		.handler(async (ctx) => {
+			const allowedTypes = [
+				"image/png",
+				"image/jpeg",
+				"image/webp",
+				"image/gif",
+			];
+			if (!allowedTypes.includes(ctx.input.contentType)) {
+				throw new Error("Invalid file type");
+			}
+			const key = `uploads/${Date.now()}-${z.nanoid()}.webp`;
+			const command = new PutObjectCommand({
+				Bucket: process.env.R2_BUCKET as string,
+				Key: key,
+				ContentType: ctx.input.contentType,
+				CacheControl: "public, max-age=31536000",
+			});
+
+			const uploadUrl = await getSignedUrl(r2, command, {
+				expiresIn: 60 * 5,
+			});
+			const fileUrl = `${process.env.R2_PUBLIC_URL}/${key}`;
+			return {
+				uploadUrl,
+				fileUrl,
 			};
 		}),
 };

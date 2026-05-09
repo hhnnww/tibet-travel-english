@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Button } from "#/components/ui/button";
 import { Input } from "#/components/ui/input";
 import { Spinner } from "#/components/ui/spinner";
+
 import { orpc } from "#/orpc/client";
 
 export const ImageList = ({ page }: { page: number }) => {
@@ -42,61 +43,84 @@ export const ImageList = ({ page }: { page: number }) => {
 		}, 1500);
 	};
 
+	if (images.isPending) {
+		return (
+			<div className="flex items-center justify-center py-20">
+				<Spinner className="size-6" />
+			</div>
+		);
+	}
+
 	return (
-		<div className="grid grid-cols-4 gap-6">
+		<div className="grid grid-cols-2 gap-6 md:grid-cols-3 xl:grid-cols-4">
 			{images.data?.items?.map((item) => {
 				const isDeleting =
 					deleteMutation.isPending &&
 					deleteMutation.variables?.key === item.key;
 
 				return (
-					<div key={item.key}>
-						<div className="flex flex-col gap-2">
-							<div className="flex aspect-square items-center justify-center overflow-hidden rounded-md border bg-muted">
+					<div
+						key={item.key}
+						className="group overflow-hidden rounded-xl gap-2 flex flex-col"
+					>
+						{/* 图片 */}
+						<div className="relative aspect-square overflow-hidden bg-muted">
+							<div className="flex h-full w-full items-center justify-center">
 								<img
 									src={item.url}
 									alt={item.key}
-									className="h-full w-full object-cover"
+									className="h-full w-full object-contain object-center transition-transform duration-300 group-hover:scale-[1.03]"
+									loading="lazy"
 								/>
 							</div>
 
-							<div className="flex gap-2">
-								<Input
-									value={item.url}
-									readOnly
-									onClick={(event) => {
-										event.currentTarget.select();
-									}}
-								/>
-
+							{/* 删除按钮 */}
+							<div className="absolute top-2 right-2 opacity-0 transition-opacity group-hover:opacity-100">
 								<Button
-									type="button"
 									size="icon"
-									variant="ghost"
-									onClick={() => {
-										handleCopy(item.url);
+									variant="secondary"
+									className="size-8"
+									disabled={isDeleting}
+									onClick={async () => {
+										await deleteMutation.mutateAsync({
+											key: item.key as string,
+										});
 									}}
 								>
-									{copiedUrl === item.url ? (
-										<Check className="size-4" />
+									{isDeleting ? (
+										<Spinner className="size-4" />
 									) : (
-										<Copy className="size-4" />
+										<Trash className="size-4" />
 									)}
 								</Button>
 							</div>
 						</div>
 
-						<div className="mt-2">
+						{/* URL */}
+						<div className="flex gap-2">
+							<Input
+								value={item.url}
+								readOnly
+								className="h-9"
+								onClick={(event) => {
+									event.currentTarget.select();
+								}}
+							/>
+
 							<Button
-								disabled={isDeleting}
-								onClick={async () => {
-									await deleteMutation.mutateAsync({
-										key: item.key as string,
-									});
+								type="button"
+								size="icon"
+								variant="outline"
+								className="shrink-0"
+								onClick={() => {
+									handleCopy(item.url);
 								}}
 							>
-								{isDeleting ? <Spinner data-icon="inline-start" /> : <Trash />}
-								delete
+								{copiedUrl === item.url ? (
+									<Check className="size-4" />
+								) : (
+									<Copy className="size-4" />
+								)}
 							</Button>
 						</div>
 					</div>
