@@ -141,6 +141,12 @@ export const AdReplyEditForm = ({
 							</Field>
 						)}
 					</form.Field>
+
+					<div className="col-span-1">
+						{form.getFieldValue("avatar") && (
+							<img src={form.getFieldValue("avatar") as string} alt="avatar" />
+						)}
+					</div>
 					<div className="col-span-4">
 						<form.Field name="content">
 							{(field) => (

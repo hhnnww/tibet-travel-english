@@ -1,5 +1,12 @@
 import { relations, sql } from "drizzle-orm";
-import { integer, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import {
+	boolean,
+	integer,
+	pgTable,
+	serial,
+	text,
+	timestamp,
+} from "drizzle-orm/pg-core";
 import adderess from "#/db/address.json";
 import nicknames from "#/db/nikename.json";
 
@@ -18,7 +25,7 @@ export const AdPage = pgTable("adpage", {
 	address: text().$defaultFn(() => {
 		return adderess[Math.floor(Math.random() * adderess.length)];
 	}),
-	star: integer().default(sql`floor(random() * 4 + 2)::int`),
+	star: integer().default(sql`floor(random() * 3 + 3)::int`),
 	contributions: integer().default(sql`floor(random() * 151 + 150)::int`),
 	avatar: text(),
 	publishDate: integer().default(sql`floor(random() * 10 + 20)::int`),
@@ -64,3 +71,16 @@ export const adReplyRelations = relations(AdReply, ({ one }) => ({
 		references: [AdPage.id],
 	}),
 }));
+
+export const adSaler = pgTable("adSaler", {
+	id: serial().primaryKey(),
+
+	name: text().default(""),
+	wechat: text().default(""),
+	phone: text().default(""),
+	email: text().default(""),
+	whatapp: text().default(""),
+
+	state: boolean().default(true),
+	createdAt: timestamp("created_at").defaultNow(),
+});

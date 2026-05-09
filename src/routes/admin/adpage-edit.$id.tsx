@@ -1,5 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Undo2 } from "lucide-react";
+import { Button } from "#/components/ui/button";
 import { orpc } from "#/orpc/client";
 import { AdPageEditForm } from "./-adpage/adpage-edit-form";
 import { AdreplyAdd } from "./-adpage/adreply-add";
@@ -36,6 +38,12 @@ function RouteComponent() {
 
 	return (
 		<div className="flex flex-col items-start gap-12 w-full">
+			<Link to="/admin/adpage">
+				<Button>
+					<Undo2 />
+					返回
+				</Button>
+			</Link>
 			<AdPageEditForm id={Number(params.id)} />
 			<AdreplyAdd pageid={Number(params.id)} />
 

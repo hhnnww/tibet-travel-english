@@ -14,6 +14,7 @@ import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthPathnameRouteImport } from './routes/auth.$pathname'
 import { Route as ApiSplatRouteImport } from './routes/api.$'
+import { Route as AdminAdsalerRouteImport } from './routes/admin/adsaler'
 import { Route as AdminAdpageRouteImport } from './routes/admin/adpage'
 import { Route as AccountPathnameRouteImport } from './routes/account.$pathname'
 import { Route as ApiRpcSplatRouteImport } from './routes/api.rpc.$'
@@ -44,6 +45,11 @@ const ApiSplatRoute = ApiSplatRouteImport.update({
   id: '/api/$',
   path: '/api/$',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AdminAdsalerRoute = AdminAdsalerRouteImport.update({
+  id: '/adsaler',
+  path: '/adsaler',
+  getParentRoute: () => AdminRouteRoute,
 } as any)
 const AdminAdpageRoute = AdminAdpageRouteImport.update({
   id: '/adpage',
@@ -77,6 +83,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/account/$pathname': typeof AccountPathnameRoute
   '/admin/adpage': typeof AdminAdpageRoute
+  '/admin/adsaler': typeof AdminAdsalerRoute
   '/api/$': typeof ApiSplatRoute
   '/auth/$pathname': typeof AuthPathnameRoute
   '/admin/adpage-edit/$id': typeof AdminAdpageEditIdRoute
@@ -89,6 +96,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/account/$pathname': typeof AccountPathnameRoute
   '/admin/adpage': typeof AdminAdpageRoute
+  '/admin/adsaler': typeof AdminAdsalerRoute
   '/api/$': typeof ApiSplatRoute
   '/auth/$pathname': typeof AuthPathnameRoute
   '/admin/adpage-edit/$id': typeof AdminAdpageEditIdRoute
@@ -102,6 +110,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/account/$pathname': typeof AccountPathnameRoute
   '/admin/adpage': typeof AdminAdpageRoute
+  '/admin/adsaler': typeof AdminAdsalerRoute
   '/api/$': typeof ApiSplatRoute
   '/auth/$pathname': typeof AuthPathnameRoute
   '/admin/adpage-edit/$id': typeof AdminAdpageEditIdRoute
@@ -116,6 +125,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/account/$pathname'
     | '/admin/adpage'
+    | '/admin/adsaler'
     | '/api/$'
     | '/auth/$pathname'
     | '/admin/adpage-edit/$id'
@@ -128,6 +138,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/account/$pathname'
     | '/admin/adpage'
+    | '/admin/adsaler'
     | '/api/$'
     | '/auth/$pathname'
     | '/admin/adpage-edit/$id'
@@ -140,6 +151,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/account/$pathname'
     | '/admin/adpage'
+    | '/admin/adsaler'
     | '/api/$'
     | '/auth/$pathname'
     | '/admin/adpage-edit/$id'
@@ -194,6 +206,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/adsaler': {
+      id: '/admin/adsaler'
+      path: '/adsaler'
+      fullPath: '/admin/adsaler'
+      preLoaderRoute: typeof AdminAdsalerRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
     '/admin/adpage': {
       id: '/admin/adpage'
       path: '/adpage'
@@ -234,12 +253,14 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteRouteChildren {
   AdminAdpageRoute: typeof AdminAdpageRoute
+  AdminAdsalerRoute: typeof AdminAdsalerRoute
   AdminAdpageEditIdRoute: typeof AdminAdpageEditIdRoute
   AdminImagesPageRoute: typeof AdminImagesPageRoute
 }
 
 const AdminRouteRouteChildren: AdminRouteRouteChildren = {
   AdminAdpageRoute: AdminAdpageRoute,
+  AdminAdsalerRoute: AdminAdsalerRoute,
   AdminAdpageEditIdRoute: AdminAdpageEditIdRoute,
   AdminImagesPageRoute: AdminImagesPageRoute,
 }

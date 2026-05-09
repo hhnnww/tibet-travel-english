@@ -15,6 +15,13 @@
       "when": 1778132426075,
       "tag": "0001_far_hammerhead",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1778245592527,
+      "tag": "0002_colossal_rockslide",
+      "breakpoints": true
     }
   ]
 }

@@ -1,0 +1,272 @@
+{
+  "id": "9c42ec0b-c69d-4ef2-91a9-3e7851f9bc80",
+  "prevId": "48619f99-ee94-4436-8e15-f0796a63d851",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.adpage": {
+      "name": "adpage",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'new tibet ad page'"
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'new adpage content'"
+        },
+        "view": {
+          "name": "view",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "floor(random() * 1551 + 1550)::int"
+        },
+        "nikename": {
+          "name": "nikename",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "address": {
+          "name": "address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "star": {
+          "name": "star",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "floor(random() * 3 + 3)::int"
+        },
+        "contributions": {
+          "name": "contributions",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "floor(random() * 151 + 150)::int"
+        },
+        "avatar": {
+          "name": "avatar",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "publishDate": {
+          "name": "publishDate",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "floor(random() * 10 + 20)::int"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.adreply": {
+      "name": "adreply",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'new adreply content'"
+        },
+        "view": {
+          "name": "view",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "floor(random() * 1551 + 1550)::int"
+        },
+        "nikename": {
+          "name": "nikename",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "address": {
+          "name": "address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "star": {
+          "name": "star",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "floor(random() * 4 + 2)::int"
+        },
+        "contributions": {
+          "name": "contributions",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "floor(random() * 151 + 150)::int"
+        },
+        "avatar": {
+          "name": "avatar",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "publishDate": {
+          "name": "publishDate",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "floor(random() * 10 + 20)::int"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "page_id": {
+          "name": "page_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "adreply_page_id_adpage_id_fk": {
+          "name": "adreply_page_id_adpage_id_fk",
+          "tableFrom": "adreply",
+          "tableTo": "adpage",
+          "columnsFrom": [
+            "page_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.adSaler": {
+      "name": "adSaler",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "''"
+        },
+        "wechat": {
+          "name": "wechat",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "''"
+        },
+        "phone": {
+          "name": "phone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "''"
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "''"
+        },
+        "whatapp": {
+          "name": "whatapp",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "''"
+        },
+        "state": {
+          "name": "state",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

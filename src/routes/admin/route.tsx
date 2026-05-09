@@ -19,6 +19,7 @@ function RouteComponent() {
 					</Link>
 					<div className="flex gap-6">
 						<Link to="/admin/adpage">广告页面</Link>
+						<Link to="/admin/adsaler">销售</Link>
 						<Link to="/admin/images/$page" params={{ page: "1" }}>
 							图片空间
 						</Link>
