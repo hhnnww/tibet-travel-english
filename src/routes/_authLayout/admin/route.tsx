@@ -4,18 +4,14 @@ import {
 	UserButton,
 } from "@neondatabase/neon-js/auth/react";
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
-import { useEffect } from "react";
 
-export const Route = createFileRoute("/admin")({
+export const Route = createFileRoute("/_authLayout/admin")({
 	component: RouteComponent,
 });
 
 function RouteComponent() {
-	useEffect(() => {
-		localStorage.setItem("theme", "dark");
-	}, []);
 	return (
-		<>
+		<div className="">
 			<div className="flex justify-between items-center p-4">
 				<div className="flex gap-8 items-center">
 					<Link className="text-xl uppercase" to="/admin">
@@ -38,6 +34,6 @@ function RouteComponent() {
 				<Outlet />
 			</div>
 			<RedirectToSignIn />
-		</>
+		</div>
 	);
 }

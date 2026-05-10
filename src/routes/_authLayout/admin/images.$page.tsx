@@ -6,7 +6,7 @@ import { ImageList } from "./-adimage/image-list";
 import { PageNavi } from "./-adimage/page-navi";
 import { ImageUpload } from "./-adimage/update-image";
 
-export const Route = createFileRoute("/admin/images/$page")({
+export const Route = createFileRoute("/_authLayout/admin/images/$page")({
 	component: RouteComponent,
 
 	loader: async (ctx) => {

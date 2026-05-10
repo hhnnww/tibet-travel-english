@@ -9,31 +9,26 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as AdminRouteRouteImport } from './routes/admin/route'
+import { Route as AuthLayoutRouteImport } from './routes/_authLayout'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthPathnameRouteImport } from './routes/auth.$pathname'
 import { Route as ApiSplatRouteImport } from './routes/api.$'
 import { Route as AdpagePageidRouteImport } from './routes/adpage/$pageid'
-import { Route as AdminAdsalerRouteImport } from './routes/admin/adsaler'
-import { Route as AdminAdpageRouteImport } from './routes/admin/adpage'
-import { Route as AccountPathnameRouteImport } from './routes/account.$pathname'
+import { Route as AuthLayoutAdminRouteRouteImport } from './routes/_authLayout/admin/route'
 import { Route as ApiRpcSplatRouteImport } from './routes/api.rpc.$'
-import { Route as AdminImagesPageRouteImport } from './routes/admin/images.$page'
-import { Route as AdminAdpageEditIdRouteImport } from './routes/admin/adpage-edit.$id'
+import { Route as AuthLayoutAuthPathnameRouteImport } from './routes/_authLayout/auth.$pathname'
+import { Route as AuthLayoutAdminAdsalerRouteImport } from './routes/_authLayout/admin/adsaler'
+import { Route as AuthLayoutAdminAdpageRouteImport } from './routes/_authLayout/admin/adpage'
+import { Route as AuthLayoutAccountPathnameRouteImport } from './routes/_authLayout/account.$pathname'
+import { Route as AuthLayoutAdminImagesPageRouteImport } from './routes/_authLayout/admin/images.$page'
+import { Route as AuthLayoutAdminAdpageEditIdRouteImport } from './routes/_authLayout/admin/adpage-edit.$id'
 
-const AdminRouteRoute = AdminRouteRouteImport.update({
-  id: '/admin',
-  path: '/admin',
+const AuthLayoutRoute = AuthLayoutRouteImport.update({
+  id: '/_authLayout',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthPathnameRoute = AuthPathnameRouteImport.update({
-  id: '/auth/$pathname',
-  path: '/auth/$pathname',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiSplatRoute = ApiSplatRouteImport.update({
@@ -46,136 +41,149 @@ const AdpagePageidRoute = AdpagePageidRouteImport.update({
   path: '/adpage/$pageid',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminAdsalerRoute = AdminAdsalerRouteImport.update({
-  id: '/adsaler',
-  path: '/adsaler',
-  getParentRoute: () => AdminRouteRoute,
-} as any)
-const AdminAdpageRoute = AdminAdpageRouteImport.update({
-  id: '/adpage',
-  path: '/adpage',
-  getParentRoute: () => AdminRouteRoute,
-} as any)
-const AccountPathnameRoute = AccountPathnameRouteImport.update({
-  id: '/account/$pathname',
-  path: '/account/$pathname',
-  getParentRoute: () => rootRouteImport,
+const AuthLayoutAdminRouteRoute = AuthLayoutAdminRouteRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthLayoutRoute,
 } as any)
 const ApiRpcSplatRoute = ApiRpcSplatRouteImport.update({
   id: '/api/rpc/$',
   path: '/api/rpc/$',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminImagesPageRoute = AdminImagesPageRouteImport.update({
-  id: '/images/$page',
-  path: '/images/$page',
-  getParentRoute: () => AdminRouteRoute,
+const AuthLayoutAuthPathnameRoute = AuthLayoutAuthPathnameRouteImport.update({
+  id: '/auth/$pathname',
+  path: '/auth/$pathname',
+  getParentRoute: () => AuthLayoutRoute,
 } as any)
-const AdminAdpageEditIdRoute = AdminAdpageEditIdRouteImport.update({
-  id: '/adpage-edit/$id',
-  path: '/adpage-edit/$id',
-  getParentRoute: () => AdminRouteRoute,
+const AuthLayoutAdminAdsalerRoute = AuthLayoutAdminAdsalerRouteImport.update({
+  id: '/adsaler',
+  path: '/adsaler',
+  getParentRoute: () => AuthLayoutAdminRouteRoute,
 } as any)
+const AuthLayoutAdminAdpageRoute = AuthLayoutAdminAdpageRouteImport.update({
+  id: '/adpage',
+  path: '/adpage',
+  getParentRoute: () => AuthLayoutAdminRouteRoute,
+} as any)
+const AuthLayoutAccountPathnameRoute =
+  AuthLayoutAccountPathnameRouteImport.update({
+    id: '/account/$pathname',
+    path: '/account/$pathname',
+    getParentRoute: () => AuthLayoutRoute,
+  } as any)
+const AuthLayoutAdminImagesPageRoute =
+  AuthLayoutAdminImagesPageRouteImport.update({
+    id: '/images/$page',
+    path: '/images/$page',
+    getParentRoute: () => AuthLayoutAdminRouteRoute,
+  } as any)
+const AuthLayoutAdminAdpageEditIdRoute =
+  AuthLayoutAdminAdpageEditIdRouteImport.update({
+    id: '/adpage-edit/$id',
+    path: '/adpage-edit/$id',
+    getParentRoute: () => AuthLayoutAdminRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRouteRouteWithChildren
-  '/account/$pathname': typeof AccountPathnameRoute
-  '/admin/adpage': typeof AdminAdpageRoute
-  '/admin/adsaler': typeof AdminAdsalerRoute
+  '/admin': typeof AuthLayoutAdminRouteRouteWithChildren
   '/adpage/$pageid': typeof AdpagePageidRoute
   '/api/$': typeof ApiSplatRoute
-  '/auth/$pathname': typeof AuthPathnameRoute
-  '/admin/adpage-edit/$id': typeof AdminAdpageEditIdRoute
-  '/admin/images/$page': typeof AdminImagesPageRoute
+  '/account/$pathname': typeof AuthLayoutAccountPathnameRoute
+  '/admin/adpage': typeof AuthLayoutAdminAdpageRoute
+  '/admin/adsaler': typeof AuthLayoutAdminAdsalerRoute
+  '/auth/$pathname': typeof AuthLayoutAuthPathnameRoute
   '/api/rpc/$': typeof ApiRpcSplatRoute
+  '/admin/adpage-edit/$id': typeof AuthLayoutAdminAdpageEditIdRoute
+  '/admin/images/$page': typeof AuthLayoutAdminImagesPageRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRouteRouteWithChildren
-  '/account/$pathname': typeof AccountPathnameRoute
-  '/admin/adpage': typeof AdminAdpageRoute
-  '/admin/adsaler': typeof AdminAdsalerRoute
+  '/admin': typeof AuthLayoutAdminRouteRouteWithChildren
   '/adpage/$pageid': typeof AdpagePageidRoute
   '/api/$': typeof ApiSplatRoute
-  '/auth/$pathname': typeof AuthPathnameRoute
-  '/admin/adpage-edit/$id': typeof AdminAdpageEditIdRoute
-  '/admin/images/$page': typeof AdminImagesPageRoute
+  '/account/$pathname': typeof AuthLayoutAccountPathnameRoute
+  '/admin/adpage': typeof AuthLayoutAdminAdpageRoute
+  '/admin/adsaler': typeof AuthLayoutAdminAdsalerRoute
+  '/auth/$pathname': typeof AuthLayoutAuthPathnameRoute
   '/api/rpc/$': typeof ApiRpcSplatRoute
+  '/admin/adpage-edit/$id': typeof AuthLayoutAdminAdpageEditIdRoute
+  '/admin/images/$page': typeof AuthLayoutAdminImagesPageRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/admin': typeof AdminRouteRouteWithChildren
-  '/account/$pathname': typeof AccountPathnameRoute
-  '/admin/adpage': typeof AdminAdpageRoute
-  '/admin/adsaler': typeof AdminAdsalerRoute
+  '/_authLayout': typeof AuthLayoutRouteWithChildren
+  '/_authLayout/admin': typeof AuthLayoutAdminRouteRouteWithChildren
   '/adpage/$pageid': typeof AdpagePageidRoute
   '/api/$': typeof ApiSplatRoute
-  '/auth/$pathname': typeof AuthPathnameRoute
-  '/admin/adpage-edit/$id': typeof AdminAdpageEditIdRoute
-  '/admin/images/$page': typeof AdminImagesPageRoute
+  '/_authLayout/account/$pathname': typeof AuthLayoutAccountPathnameRoute
+  '/_authLayout/admin/adpage': typeof AuthLayoutAdminAdpageRoute
+  '/_authLayout/admin/adsaler': typeof AuthLayoutAdminAdsalerRoute
+  '/_authLayout/auth/$pathname': typeof AuthLayoutAuthPathnameRoute
   '/api/rpc/$': typeof ApiRpcSplatRoute
+  '/_authLayout/admin/adpage-edit/$id': typeof AuthLayoutAdminAdpageEditIdRoute
+  '/_authLayout/admin/images/$page': typeof AuthLayoutAdminImagesPageRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/admin'
+    | '/adpage/$pageid'
+    | '/api/$'
     | '/account/$pathname'
     | '/admin/adpage'
     | '/admin/adsaler'
-    | '/adpage/$pageid'
-    | '/api/$'
     | '/auth/$pathname'
+    | '/api/rpc/$'
     | '/admin/adpage-edit/$id'
     | '/admin/images/$page'
-    | '/api/rpc/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/admin'
+    | '/adpage/$pageid'
+    | '/api/$'
     | '/account/$pathname'
     | '/admin/adpage'
     | '/admin/adsaler'
-    | '/adpage/$pageid'
-    | '/api/$'
     | '/auth/$pathname'
+    | '/api/rpc/$'
     | '/admin/adpage-edit/$id'
     | '/admin/images/$page'
-    | '/api/rpc/$'
   id:
     | '__root__'
     | '/'
-    | '/admin'
-    | '/account/$pathname'
-    | '/admin/adpage'
-    | '/admin/adsaler'
+    | '/_authLayout'
+    | '/_authLayout/admin'
     | '/adpage/$pageid'
     | '/api/$'
-    | '/auth/$pathname'
-    | '/admin/adpage-edit/$id'
-    | '/admin/images/$page'
+    | '/_authLayout/account/$pathname'
+    | '/_authLayout/admin/adpage'
+    | '/_authLayout/admin/adsaler'
+    | '/_authLayout/auth/$pathname'
     | '/api/rpc/$'
+    | '/_authLayout/admin/adpage-edit/$id'
+    | '/_authLayout/admin/images/$page'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminRouteRoute: typeof AdminRouteRouteWithChildren
-  AccountPathnameRoute: typeof AccountPathnameRoute
+  AuthLayoutRoute: typeof AuthLayoutRouteWithChildren
   AdpagePageidRoute: typeof AdpagePageidRoute
   ApiSplatRoute: typeof ApiSplatRoute
-  AuthPathnameRoute: typeof AuthPathnameRoute
   ApiRpcSplatRoute: typeof ApiRpcSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteRouteImport
+    '/_authLayout': {
+      id: '/_authLayout'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthLayoutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -183,13 +191,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth/$pathname': {
-      id: '/auth/$pathname'
-      path: '/auth/$pathname'
-      fullPath: '/auth/$pathname'
-      preLoaderRoute: typeof AuthPathnameRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/$': {
@@ -206,26 +207,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdpagePageidRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/adsaler': {
-      id: '/admin/adsaler'
-      path: '/adsaler'
-      fullPath: '/admin/adsaler'
-      preLoaderRoute: typeof AdminAdsalerRouteImport
-      parentRoute: typeof AdminRouteRoute
-    }
-    '/admin/adpage': {
-      id: '/admin/adpage'
-      path: '/adpage'
-      fullPath: '/admin/adpage'
-      preLoaderRoute: typeof AdminAdpageRouteImport
-      parentRoute: typeof AdminRouteRoute
-    }
-    '/account/$pathname': {
-      id: '/account/$pathname'
-      path: '/account/$pathname'
-      fullPath: '/account/$pathname'
-      preLoaderRoute: typeof AccountPathnameRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_authLayout/admin': {
+      id: '/_authLayout/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthLayoutAdminRouteRouteImport
+      parentRoute: typeof AuthLayoutRoute
     }
     '/api/rpc/$': {
       id: '/api/rpc/$'
@@ -234,48 +221,89 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiRpcSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/images/$page': {
-      id: '/admin/images/$page'
+    '/_authLayout/auth/$pathname': {
+      id: '/_authLayout/auth/$pathname'
+      path: '/auth/$pathname'
+      fullPath: '/auth/$pathname'
+      preLoaderRoute: typeof AuthLayoutAuthPathnameRouteImport
+      parentRoute: typeof AuthLayoutRoute
+    }
+    '/_authLayout/admin/adsaler': {
+      id: '/_authLayout/admin/adsaler'
+      path: '/adsaler'
+      fullPath: '/admin/adsaler'
+      preLoaderRoute: typeof AuthLayoutAdminAdsalerRouteImport
+      parentRoute: typeof AuthLayoutAdminRouteRoute
+    }
+    '/_authLayout/admin/adpage': {
+      id: '/_authLayout/admin/adpage'
+      path: '/adpage'
+      fullPath: '/admin/adpage'
+      preLoaderRoute: typeof AuthLayoutAdminAdpageRouteImport
+      parentRoute: typeof AuthLayoutAdminRouteRoute
+    }
+    '/_authLayout/account/$pathname': {
+      id: '/_authLayout/account/$pathname'
+      path: '/account/$pathname'
+      fullPath: '/account/$pathname'
+      preLoaderRoute: typeof AuthLayoutAccountPathnameRouteImport
+      parentRoute: typeof AuthLayoutRoute
+    }
+    '/_authLayout/admin/images/$page': {
+      id: '/_authLayout/admin/images/$page'
       path: '/images/$page'
       fullPath: '/admin/images/$page'
-      preLoaderRoute: typeof AdminImagesPageRouteImport
-      parentRoute: typeof AdminRouteRoute
+      preLoaderRoute: typeof AuthLayoutAdminImagesPageRouteImport
+      parentRoute: typeof AuthLayoutAdminRouteRoute
     }
-    '/admin/adpage-edit/$id': {
-      id: '/admin/adpage-edit/$id'
+    '/_authLayout/admin/adpage-edit/$id': {
+      id: '/_authLayout/admin/adpage-edit/$id'
       path: '/adpage-edit/$id'
       fullPath: '/admin/adpage-edit/$id'
-      preLoaderRoute: typeof AdminAdpageEditIdRouteImport
-      parentRoute: typeof AdminRouteRoute
+      preLoaderRoute: typeof AuthLayoutAdminAdpageEditIdRouteImport
+      parentRoute: typeof AuthLayoutAdminRouteRoute
     }
   }
 }
 
-interface AdminRouteRouteChildren {
-  AdminAdpageRoute: typeof AdminAdpageRoute
-  AdminAdsalerRoute: typeof AdminAdsalerRoute
-  AdminAdpageEditIdRoute: typeof AdminAdpageEditIdRoute
-  AdminImagesPageRoute: typeof AdminImagesPageRoute
+interface AuthLayoutAdminRouteRouteChildren {
+  AuthLayoutAdminAdpageRoute: typeof AuthLayoutAdminAdpageRoute
+  AuthLayoutAdminAdsalerRoute: typeof AuthLayoutAdminAdsalerRoute
+  AuthLayoutAdminAdpageEditIdRoute: typeof AuthLayoutAdminAdpageEditIdRoute
+  AuthLayoutAdminImagesPageRoute: typeof AuthLayoutAdminImagesPageRoute
 }
 
-const AdminRouteRouteChildren: AdminRouteRouteChildren = {
-  AdminAdpageRoute: AdminAdpageRoute,
-  AdminAdsalerRoute: AdminAdsalerRoute,
-  AdminAdpageEditIdRoute: AdminAdpageEditIdRoute,
-  AdminImagesPageRoute: AdminImagesPageRoute,
+const AuthLayoutAdminRouteRouteChildren: AuthLayoutAdminRouteRouteChildren = {
+  AuthLayoutAdminAdpageRoute: AuthLayoutAdminAdpageRoute,
+  AuthLayoutAdminAdsalerRoute: AuthLayoutAdminAdsalerRoute,
+  AuthLayoutAdminAdpageEditIdRoute: AuthLayoutAdminAdpageEditIdRoute,
+  AuthLayoutAdminImagesPageRoute: AuthLayoutAdminImagesPageRoute,
 }
 
-const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
-  AdminRouteRouteChildren,
+const AuthLayoutAdminRouteRouteWithChildren =
+  AuthLayoutAdminRouteRoute._addFileChildren(AuthLayoutAdminRouteRouteChildren)
+
+interface AuthLayoutRouteChildren {
+  AuthLayoutAdminRouteRoute: typeof AuthLayoutAdminRouteRouteWithChildren
+  AuthLayoutAccountPathnameRoute: typeof AuthLayoutAccountPathnameRoute
+  AuthLayoutAuthPathnameRoute: typeof AuthLayoutAuthPathnameRoute
+}
+
+const AuthLayoutRouteChildren: AuthLayoutRouteChildren = {
+  AuthLayoutAdminRouteRoute: AuthLayoutAdminRouteRouteWithChildren,
+  AuthLayoutAccountPathnameRoute: AuthLayoutAccountPathnameRoute,
+  AuthLayoutAuthPathnameRoute: AuthLayoutAuthPathnameRoute,
+}
+
+const AuthLayoutRouteWithChildren = AuthLayoutRoute._addFileChildren(
+  AuthLayoutRouteChildren,
 )
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminRouteRoute: AdminRouteRouteWithChildren,
-  AccountPathnameRoute: AccountPathnameRoute,
+  AuthLayoutRoute: AuthLayoutRouteWithChildren,
   AdpagePageidRoute: AdpagePageidRoute,
   ApiSplatRoute: ApiSplatRoute,
-  AuthPathnameRoute: AuthPathnameRoute,
   ApiRpcSplatRoute: ApiRpcSplatRoute,
 }
 export const routeTree = rootRouteImport

@@ -7,7 +7,7 @@ import { AdPageEditForm } from "./-adpage/adpage-edit-form";
 import { AdreplyAdd } from "./-adpage/adreply-add";
 import { AdReplyEditForm } from "./-adpage/adreply-edit-form";
 
-export const Route = createFileRoute("/admin/adpage-edit/$id")({
+export const Route = createFileRoute("/_authLayout/admin/adpage-edit/$id")({
 	component: RouteComponent,
 	loader: async ({ context, params }) => {
 		await context.queryClient.prefetchQuery(

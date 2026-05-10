@@ -3,7 +3,7 @@ import { orpc } from "#/orpc/client";
 import { AdSalerAdd } from "./-adsaler/adsaler-add";
 import { AdSalerTableCard } from "./-adsaler/adsaler-table";
 
-export const Route = createFileRoute("/admin/adsaler")({
+export const Route = createFileRoute("/_authLayout/admin/adsaler")({
 	component: RouteComponent,
 
 	loader: async (ctx) => {

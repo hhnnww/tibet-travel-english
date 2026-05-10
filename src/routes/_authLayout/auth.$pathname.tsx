@@ -1,7 +1,7 @@
 import { AuthView } from "@neondatabase/auth-ui";
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/auth/$pathname")({
+export const Route = createFileRoute("/_authLayout/auth/$pathname")({
 	component: Auth,
 });
 

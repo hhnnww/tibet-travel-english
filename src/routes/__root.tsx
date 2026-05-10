@@ -1,11 +1,9 @@
-import { NeonAuthUIProvider } from "@neondatabase/auth-ui";
 import type { QueryClient } from "@tanstack/react-query";
 import {
 	createRootRouteWithContext,
 	HeadContent,
 	Scripts,
 } from "@tanstack/react-router";
-import { authClient } from "#/lib/auth";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import appCss from "../styles.css?url";
 
@@ -47,9 +45,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body>
-				<NeonAuthUIProvider authClient={authClient}>
-					<TooltipProvider>{children}</TooltipProvider>
-				</NeonAuthUIProvider>
+				<TooltipProvider>{children}</TooltipProvider>
 				<Scripts />
 			</body>
 		</html>

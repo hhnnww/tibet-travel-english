@@ -11,7 +11,7 @@ export const AdpageAsk = ({
 	const safeHtml = DOMPurify.sanitize(item?.content ?? "");
 	return (
 		<div className="mt-10">
-			<h1 className="scroll-m-20 text-2xl font-bold tracking-tight text-balance">
+			<h1 className="scroll-m-20 text-2xl font-bold tracking-tight text-balance mb-5">
 				{item?.title}
 			</h1>
 
