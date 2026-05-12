@@ -21,6 +21,10 @@ export const Route = createFileRoute("/adpage/$pageid")({
 				},
 			}),
 		);
+
+		await ctx.context.queryClient.prefetchQuery(
+			orpc.adSalerRoute.list.queryOptions(),
+		);
 	},
 });
 
@@ -37,6 +41,7 @@ function RouteComponent() {
 			},
 		}),
 	);
+	const salers = useQuery(orpc.adSalerRoute.list.queryOptions());
 	return (
 		<div className="grid grid-cols-6 gap-4 max-w-300 mx-auto py-4 px-2">
 			<div className="col-span-6">
@@ -56,7 +61,7 @@ function RouteComponent() {
 			</div>
 
 			<div className="col-span-2 sticky top-4 h-fit">
-				<Sidebar />
+				<Sidebar salers={salers.data ?? []} />
 			</div>
 		</div>
 	);

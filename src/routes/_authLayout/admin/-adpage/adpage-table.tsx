@@ -19,7 +19,6 @@ import {
 	TableRow,
 } from "#/components/ui/table";
 import { orpc } from "#/orpc/client";
-import { AdpageDelete } from "./adpage-delete";
 import { NewAdpageButton } from "./new-adpage";
 
 export const AdPageTable = () => {
@@ -40,6 +39,7 @@ export const AdPageTable = () => {
 							<TableHead>标题</TableHead>
 							<TableHead>创建时间</TableHead>
 							<TableHead>操作</TableHead>
+							<TableHead>预览</TableHead>
 						</TableRow>
 					</TableHeader>
 
@@ -62,7 +62,7 @@ export const AdPageTable = () => {
 												编辑
 											</Button>
 										</Link>
-										<AdpageDelete pageId={item.id} />
+										{/* <AdpageDelete pageId={item.id} /> */}
 									</div>
 								</TableCell>
 

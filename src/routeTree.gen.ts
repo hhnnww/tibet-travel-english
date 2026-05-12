@@ -20,6 +20,7 @@ import { Route as AuthLayoutAdminAdsalerRouteImport } from './routes/_authLayout
 import { Route as AuthLayoutAdminAdpageRouteImport } from './routes/_authLayout/admin/adpage'
 import { Route as AuthLayoutAccountPathnameRouteImport } from './routes/_authLayout/account.$pathname'
 import { Route as AuthLayoutAdminImagesPageRouteImport } from './routes/_authLayout/admin/images.$page'
+import { Route as AuthLayoutAdminAdsalerEditIdRouteImport } from './routes/_authLayout/admin/adsaler-edit.$id'
 import { Route as AuthLayoutAdminAdpageEditIdRouteImport } from './routes/_authLayout/admin/adpage-edit.$id'
 
 const AuthLayoutRoute = AuthLayoutRouteImport.update({
@@ -78,6 +79,12 @@ const AuthLayoutAdminImagesPageRoute =
     path: '/images/$page',
     getParentRoute: () => AuthLayoutAdminRouteRoute,
   } as any)
+const AuthLayoutAdminAdsalerEditIdRoute =
+  AuthLayoutAdminAdsalerEditIdRouteImport.update({
+    id: '/adsaler-edit/$id',
+    path: '/adsaler-edit/$id',
+    getParentRoute: () => AuthLayoutAdminRouteRoute,
+  } as any)
 const AuthLayoutAdminAdpageEditIdRoute =
   AuthLayoutAdminAdpageEditIdRouteImport.update({
     id: '/adpage-edit/$id',
@@ -96,6 +103,7 @@ export interface FileRoutesByFullPath {
   '/auth/$pathname': typeof AuthLayoutAuthPathnameRoute
   '/api/rpc/$': typeof ApiRpcSplatRoute
   '/admin/adpage-edit/$id': typeof AuthLayoutAdminAdpageEditIdRoute
+  '/admin/adsaler-edit/$id': typeof AuthLayoutAdminAdsalerEditIdRoute
   '/admin/images/$page': typeof AuthLayoutAdminImagesPageRoute
 }
 export interface FileRoutesByTo {
@@ -109,6 +117,7 @@ export interface FileRoutesByTo {
   '/auth/$pathname': typeof AuthLayoutAuthPathnameRoute
   '/api/rpc/$': typeof ApiRpcSplatRoute
   '/admin/adpage-edit/$id': typeof AuthLayoutAdminAdpageEditIdRoute
+  '/admin/adsaler-edit/$id': typeof AuthLayoutAdminAdsalerEditIdRoute
   '/admin/images/$page': typeof AuthLayoutAdminImagesPageRoute
 }
 export interface FileRoutesById {
@@ -124,6 +133,7 @@ export interface FileRoutesById {
   '/_authLayout/auth/$pathname': typeof AuthLayoutAuthPathnameRoute
   '/api/rpc/$': typeof ApiRpcSplatRoute
   '/_authLayout/admin/adpage-edit/$id': typeof AuthLayoutAdminAdpageEditIdRoute
+  '/_authLayout/admin/adsaler-edit/$id': typeof AuthLayoutAdminAdsalerEditIdRoute
   '/_authLayout/admin/images/$page': typeof AuthLayoutAdminImagesPageRoute
 }
 export interface FileRouteTypes {
@@ -139,6 +149,7 @@ export interface FileRouteTypes {
     | '/auth/$pathname'
     | '/api/rpc/$'
     | '/admin/adpage-edit/$id'
+    | '/admin/adsaler-edit/$id'
     | '/admin/images/$page'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -152,6 +163,7 @@ export interface FileRouteTypes {
     | '/auth/$pathname'
     | '/api/rpc/$'
     | '/admin/adpage-edit/$id'
+    | '/admin/adsaler-edit/$id'
     | '/admin/images/$page'
   id:
     | '__root__'
@@ -166,6 +178,7 @@ export interface FileRouteTypes {
     | '/_authLayout/auth/$pathname'
     | '/api/rpc/$'
     | '/_authLayout/admin/adpage-edit/$id'
+    | '/_authLayout/admin/adsaler-edit/$id'
     | '/_authLayout/admin/images/$page'
   fileRoutesById: FileRoutesById
 }
@@ -256,6 +269,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLayoutAdminImagesPageRouteImport
       parentRoute: typeof AuthLayoutAdminRouteRoute
     }
+    '/_authLayout/admin/adsaler-edit/$id': {
+      id: '/_authLayout/admin/adsaler-edit/$id'
+      path: '/adsaler-edit/$id'
+      fullPath: '/admin/adsaler-edit/$id'
+      preLoaderRoute: typeof AuthLayoutAdminAdsalerEditIdRouteImport
+      parentRoute: typeof AuthLayoutAdminRouteRoute
+    }
     '/_authLayout/admin/adpage-edit/$id': {
       id: '/_authLayout/admin/adpage-edit/$id'
       path: '/adpage-edit/$id'
@@ -270,6 +290,7 @@ interface AuthLayoutAdminRouteRouteChildren {
   AuthLayoutAdminAdpageRoute: typeof AuthLayoutAdminAdpageRoute
   AuthLayoutAdminAdsalerRoute: typeof AuthLayoutAdminAdsalerRoute
   AuthLayoutAdminAdpageEditIdRoute: typeof AuthLayoutAdminAdpageEditIdRoute
+  AuthLayoutAdminAdsalerEditIdRoute: typeof AuthLayoutAdminAdsalerEditIdRoute
   AuthLayoutAdminImagesPageRoute: typeof AuthLayoutAdminImagesPageRoute
 }
 
@@ -277,6 +298,7 @@ const AuthLayoutAdminRouteRouteChildren: AuthLayoutAdminRouteRouteChildren = {
   AuthLayoutAdminAdpageRoute: AuthLayoutAdminAdpageRoute,
   AuthLayoutAdminAdsalerRoute: AuthLayoutAdminAdsalerRoute,
   AuthLayoutAdminAdpageEditIdRoute: AuthLayoutAdminAdpageEditIdRoute,
+  AuthLayoutAdminAdsalerEditIdRoute: AuthLayoutAdminAdsalerEditIdRoute,
   AuthLayoutAdminImagesPageRoute: AuthLayoutAdminImagesPageRoute,
 }
 

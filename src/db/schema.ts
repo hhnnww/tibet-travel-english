@@ -81,6 +81,9 @@ export const adSaler = pgTable("adSaler", {
 	email: text().default(""),
 	whatapp: text().default(""),
 
+	wechat_erweima: text().default(""),
+	whatapp_erweima: text().default(""),
+
 	state: boolean().default(true),
 	createdAt: timestamp("created_at").defaultNow(),
 });
