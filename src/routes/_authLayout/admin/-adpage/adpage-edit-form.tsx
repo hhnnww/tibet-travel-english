@@ -95,6 +95,22 @@ export const AdPageEditForm = ({ id }: { id: number }) => {
 							</form.Field>
 						</div>
 					</div>
+					<div className="flex-2">
+						<form.Field name="star">
+							{(field) => (
+								<Field>
+									<FieldLabel>星级</FieldLabel>
+									<Input
+										value={field.state.value?.toString()}
+										onChange={(e) => {
+											field.handleChange(Number(e.target.value));
+											autoSave();
+										}}
+									/>
+								</Field>
+							)}
+						</form.Field>
+					</div>
 					<form.Field name="title">
 						{(field) => (
 							<Field>

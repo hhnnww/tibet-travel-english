@@ -7,7 +7,7 @@ export const AdPageNav = () => {
 	return (
 		<div className="">
 			<div className="flex border-b gap-5 border-[#fefefe]">
-				<NavButton name="Florence" icon={<MapIcon />} />
+				<NavButton name="Tibet" icon={<MapIcon />} />
 				<NavButton name="Things to Do" />
 				<NavButton name="Hotels" />
 				<NavButton name="Restaurants" />
@@ -36,15 +36,7 @@ const NavButton = (ctx: { name: string; icon?: React.ReactNode }) => {
 };
 
 const NavLink = () => {
-	const breadcrumbs = [
-		"Europe",
-		"Italy",
-		"Tuscany",
-		"Province of Florence",
-		"Florence",
-		"Things to Do in Florence",
-		"Florence Tours",
-	];
+	const breadcrumbs = ["Asian", "China", "Tibet", "Tibet Tours"];
 
 	return (
 		<div className="flex flex-wrap items-center gap-1 text-[12px] text-[#002b11] py-3">
