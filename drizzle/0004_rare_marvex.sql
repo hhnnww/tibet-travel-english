@@ -1,0 +1,1 @@
+ALTER TABLE "adSaler" ADD COLUMN "avatar" text DEFAULT '';

@@ -75,6 +75,7 @@ export const adReplyRelations = relations(AdReply, ({ one }) => ({
 export const adSaler = pgTable("adSaler", {
 	id: serial().primaryKey(),
 
+	avatar: text().default(""),
 	name: text().default(""),
 	wechat: text().default(""),
 	phone: text().default(""),

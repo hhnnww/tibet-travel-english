@@ -43,24 +43,24 @@ function RouteComponent() {
 	);
 	const salers = useQuery(orpc.adSalerRoute.list.queryOptions());
 	return (
-		<div className="grid grid-cols-6 gap-4 max-w-300 mx-auto py-4 px-2">
-			<div className="col-span-6">
+		<div className="grid grid-cols-12 gap-4 max-w-300 mx-auto py-4 px-2">
+			<div className="col-span-12">
 				<Header />
 			</div>
 
-			<div className="col-span-6">
+			<div className="col-span-12">
 				<AdPageNav />
 			</div>
 
-			<div className="col-span-6">
+			<div className="col-span-12">
 				<AdpageAsk item={query.data} />
 			</div>
 
-			<div className="col-span-4">
+			<div className="col-span-8">
 				<AnsWer items={query.data?.replies ?? []} />
 			</div>
 
-			<div className="col-span-2 sticky top-4 h-fit">
+			<div className="col-span-4 sticky top-4 h-fit">
 				<Sidebar salers={salers.data ?? []} />
 			</div>
 		</div>

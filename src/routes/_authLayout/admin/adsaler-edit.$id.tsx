@@ -69,6 +69,21 @@ function RouteComponent() {
 					<CardContent>
 						<form>
 							<div className="grid grid-cols-12 gap-8">
+								<form.Field name="avatar">
+									{(field) => (
+										<Field className="col-span-12">
+											<FieldLabel>销售头像</FieldLabel>
+											<Input
+												value={field.state.value || ""}
+												onChange={(e) => {
+													field.handleChange(e.target.value);
+													autoSave();
+												}}
+												className="w-full"
+											/>
+										</Field>
+									)}
+								</form.Field>
 								<form.Field name="name">
 									{(field) => (
 										<Field className="col-span-4">
