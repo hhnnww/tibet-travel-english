@@ -53,36 +53,6 @@ export const MtyLogo = () => {
 	);
 };
 
-export const MtyCircle = (ctx: { num: number }) => {
-	// 生成数组用于 map 循环
-	const circles = Array.from({ length: ctx.num }, (_, index) => {
-		return (
-			<path
-				key={String(index)}
-				d="M 12 0C5.388 0 0 5.388 0 12s5.388 12 12 12 12-5.38 12-12c0-6.612-5.38-12-12-12z"
-				transform={`translate(${index * 26} 0)`}
-				fill="#00852f"
-			></path>
-		);
-	});
-
-	// 缩小系数，例如 0.8
-	const scale = 0.8;
-
-	return (
-		<svg
-			viewBox={`0 0 ${ctx.num * 28} 24`}
-			width={ctx.num * 26 * scale}
-			height={24 * scale}
-			aria-labelledby="_lithium-r_i_"
-			data-automation="bubbleRatingImage"
-		>
-			<title id="_lithium-r_i_">{ctx.num} of 5 bubbles</title>
-			{circles}
-		</svg>
-	);
-};
-
 export const MtyGoodIcon = () => {
 	return (
 		<svg
@@ -110,6 +80,31 @@ export const MtyInfoIcon = () => {
 				clipRule="evenodd"
 				d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2M4 12a8 8 0 1 1 16 0 8 8 0 0 1-16 0"
 			></path>
+		</svg>
+	);
+};
+
+export const MtyCircle = ({ num = 0 }: { num?: number }) => {
+	const safeNum = num;
+
+	return (
+		<svg
+			viewBox={`0 0 ${safeNum * 28} 24`}
+			width={safeNum * 26 * 0.8}
+			height={24 * 0.8}
+			aria-labelledby="bubble-rating"
+			data-automation="bubbleRatingImage"
+		>
+			<title>bubbles</title>
+
+			{Array.from({ length: safeNum }).map((_, index) => (
+				<path
+					key={index.toString()}
+					d="M 12 0C5.388 0 0 5.388 0 12s5.388 12 12 12 12-5.38 12-12c0-6.612-5.38-12-12-12z"
+					transform={`translate(${index * 26} 0)`}
+					fill="#00852f"
+				/>
+			))}
 		</svg>
 	);
 };

@@ -5,6 +5,7 @@ import {
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { os } from "@orpc/server";
+import { nanoid } from "nanoid";
 import * as z from "zod";
 import { deleteImage, r2 } from "#/lib/r2";
 
@@ -90,7 +91,7 @@ export const imagesRouter = {
 			if (!allowedTypes.includes(ctx.input.contentType)) {
 				throw new Error("Invalid file type");
 			}
-			const key = `uploads/${Date.now()}-${z.nanoid()}.webp`;
+			const key = `uploads/${Date.now()}-${nanoid()}.webp`;
 			const command = new PutObjectCommand({
 				Bucket: process.env.R2_BUCKET as string,
 				Key: key,

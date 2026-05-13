@@ -137,4 +137,8 @@
     p{
       @apply mb-3;
     }
+
+    .content img{
+      @apply max-w-125 rounded-xs mb-5;
+    }
 }
