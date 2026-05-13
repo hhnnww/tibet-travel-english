@@ -201,14 +201,18 @@ function RouteComponent() {
 									{(field) => (
 										<Field
 											orientation="vertical"
-											className={`${field.state.value && "bg-primary"} col-span-12 p-4 border rounded-2xl`}
+											className={`${field.state.value && "bg-primary text-white"} col-span-12 p-4 border rounded-2xl`}
 										>
 											<FieldContent>
 												<FieldTitle>
 													{field.state.value ? "已启用" : "已禁用"}
 												</FieldTitle>
 												<FieldDescription>
-													如果选择禁用，前台销售轮换中就不会出现这个销售
+													<div
+														className={`${field.state.value && "text-white"}`}
+													>
+														如果选择禁用，前台销售轮换中就不会出现这个销售
+													</div>
 												</FieldDescription>
 											</FieldContent>
 											<Switch
