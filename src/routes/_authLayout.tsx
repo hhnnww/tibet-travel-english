@@ -10,8 +10,8 @@ export const Route = createFileRoute("/_authLayout")({
 
 function RouteComponent() {
 	useEffect(() => {
-		setMode("dark");
-		document.documentElement.classList.add("dark");
+		setMode("light");
+		document.documentElement.classList.add("light");
 	});
 
 	return (

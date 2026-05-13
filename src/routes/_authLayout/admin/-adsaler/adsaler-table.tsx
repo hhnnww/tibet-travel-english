@@ -35,7 +35,9 @@ const AdsalerTable = () => {
 						<TableCell className="w-full">{item.name}</TableCell>
 						<TableCell>
 							{item.state ? (
-								<div className="bg-primary py-2 px-3 rounded-full">已启用</div>
+								<div className="bg-primary py-2 px-3 rounded-full text-white">
+									已启用
+								</div>
 							) : (
 								<div className="bg-accent py-2 px-3 rounded-full">已禁用</div>
 							)}
