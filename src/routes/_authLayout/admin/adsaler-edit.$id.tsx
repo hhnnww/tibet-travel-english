@@ -168,7 +168,7 @@ function RouteComponent() {
 								<form.Field name="wechat_erweima">
 									{(field) => (
 										<Field className="col-span-12">
-											<FieldLabel>微信二维码链接/ID</FieldLabel>
+											<FieldLabel>微信二维码链接</FieldLabel>
 											<Input
 												value={field.state.value || ""}
 												onChange={(e) => {
@@ -184,7 +184,7 @@ function RouteComponent() {
 								<form.Field name="whatapp_erweima">
 									{(field) => (
 										<Field className="col-span-12">
-											<FieldLabel>WhatsApp二维码链接/ID</FieldLabel>
+											<FieldLabel>WhatsApp二维码链接</FieldLabel>
 											<Input
 												value={field.state.value || ""}
 												onChange={(e) => {

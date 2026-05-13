@@ -93,8 +93,8 @@ export const MtyGoodIcon = () => {
 			fill="#b61753"
 		>
 			<path
-				fill-rule="evenodd"
-				clip-rule="evenodd"
+				fillRule="evenodd"
+				clipRule="evenodd"
 				d="m14.232 4.13-2.603-2.134L9.037 4.13l-3.358-.195-.848 3.253L2 8.987l1.227 3.142L2 15.26l2.832 1.813.849 3.244 3.357-.195 2.592 2.133 2.603-2.133 3.358.195.849-3.244 2.832-1.812-1.227-3.13 1.227-3.143-2.833-1.8-.847-3.253zm-3.62 11.833 5.195-5.196-1.414-1.414-3.784 3.784-1.753-1.745-1.412 1.417z"
 			></path>
 		</svg>
@@ -106,8 +106,8 @@ export const MtyInfoIcon = () => {
 		<svg viewBox="0 0 24 24" width="16px" height="16px" aria-hidden="true">
 			<path d="M11 10v7h2v-7zm-.034-2.952a1.25 1.25 0 0 0-.216.692A1.24 1.24 0 0 0 12 9a1.25 1.25 0 1 0-1.034-1.952"></path>
 			<path
-				fill-rule="evenodd"
-				clip-rule="evenodd"
+				fillRule="evenodd"
+				clipRule="evenodd"
 				d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2M4 12a8 8 0 1 1 16 0 8 8 0 0 1-16 0"
 			></path>
 		</svg>

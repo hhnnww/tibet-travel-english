@@ -21,9 +21,6 @@ export const Sidebar = (ctx: {
 	const current_saler = active_salers[index];
 	return (
 		<div className="border p-3 rounded text-wrap">
-			<div className="">{startOfDay}</div>
-			<div className="">{minuteIndex}</div>
-			<div className="">{index}</div>
 			<div className="">{JSON.stringify(current_saler)}</div>
 		</div>
 	);
