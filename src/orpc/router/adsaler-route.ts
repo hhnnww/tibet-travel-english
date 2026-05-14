@@ -65,4 +65,22 @@ export const adSalerRoute = {
 				success: true,
 			};
 		}),
+
+	current_saler: os.handler(async () => {
+		const salers = await db
+			.select()
+			.from(adSaler)
+			.where(eq(adSaler.state, true))
+			.orderBy(adSaler.createdAt);
+		if (salers.length === 0) return null;
+		const now = new Date();
+		const startOfDay = new Date(
+			now.getFullYear(),
+			now.getMonth(),
+			now.getDate(),
+		).getTime();
+		const minuteIndex = Math.floor((now.getTime() - startOfDay) / (1000 * 60));
+		const index = minuteIndex % salers.length;
+		return salers[index];
+	}),
 };
