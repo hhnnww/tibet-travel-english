@@ -72,7 +72,7 @@ const AnswerBox = (item: {
 						<div className=" capitalize font-semibold">
 							{item.item.nikename}
 						</div>
-						<div className="flex text-[#38443a] gap-2 text-xs">
+						<div className="flex text-[#38443a] gap-2 text-xs text-nowrap flex-col lg:flex-row">
 							{/* 用户信息项：地址、发布时间、贡献数 */}
 							<AnswerUserInfoItem
 								icon={<AddressIcon />}
@@ -90,7 +90,7 @@ const AnswerBox = (item: {
 					</div>
 				</div>
 
-				<div className="col-span-2">
+				<div className="hidden lg:block col-span-2">
 					<div className="flex gap-1 items-center">
 						{/* 点赞按钮和菜单按钮 */}
 						<ZanButton num={item.item?.contributions ?? 0} />

@@ -1,5 +1,6 @@
-import { Search } from "lucide-react";
+import { Menu, Search } from "lucide-react";
 import type React from "react";
+import { Button } from "#/components/ui/button";
 import { AiLogo, MtyLogo, UsdIcon } from "./svg-icon";
 export const Header = () => {
 	return (
@@ -7,7 +8,7 @@ export const Header = () => {
 			<div className="flex items-center gap-4 w-full">
 				<MtyLogo />
 
-				<div className="flex border border-[#768a79]! px-4 max-w-80 w-full rounded-full gap-2 items-center">
+				<div className="hidden lg:flex border border-[#768a79]! px-4 max-w-80 w-full rounded-full gap-2 items-center">
 					<Search size={28} strokeWidth={1} className="" />
 					<input
 						type="text"
@@ -16,13 +17,20 @@ export const Header = () => {
 					/>
 				</div>
 			</div>
-			<div className="flex flex-row items-center gap-1 w-full">
+
+			<div className="hidden lg:flex flex-row items-center gap-1 w-full">
 				<HeaderButton name="Plan with AI" icon={<AiLogo />} />
 				<HeaderButton name="Rewards" />
 				<HeaderButton name="Discover" />
 				<HeaderButton name="Review" />
 				<HeaderButton name="USD" icon={<UsdIcon />} />
 				<SignInButton name="Sign in" />
+			</div>
+
+			<div className="lg:hidden">
+				<Button size={"icon"} variant={"outline"}>
+					<Menu />
+				</Button>
 			</div>
 		</div>
 	);

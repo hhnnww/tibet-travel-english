@@ -21,7 +21,7 @@ export const Sidebar = () => {
 
 	return (
 		<Card>
-			<CardHeader>
+			<CardHeader className="hidden md:block">
 				<CardTitle className="font-semibold">
 					Contact {current_saler.name}
 				</CardTitle>

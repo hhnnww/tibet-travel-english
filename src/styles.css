@@ -139,6 +139,6 @@
     }
 
     .content img{
-      @apply max-w-125 rounded-xs mb-5;
+      @apply max-w-full lg:max-w-125 rounded-xs mb-5;
     }
 }

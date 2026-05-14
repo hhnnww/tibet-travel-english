@@ -16,9 +16,11 @@ export const AdpageAsk = (item: { num: number }) => {
 
 	return (
 		<div className="grid grid-cols-4 gap-6 items-start justify-between py-8 border-b mb-8">
-			<div className="flex gap-4 flex-col col-span-3">
-				<h1 className="scroll-m-20 text-3xl font-bold">{query.data?.title}</h1>
-				<div className="flex items-center gap-1">
+			<div className="flex gap-4 flex-col col-span-4 lg:col-span-3">
+				<h1 className="scroll-m-20 text-xl lg:text-3xl font-bold">
+					{query.data?.title}
+				</h1>
+				<div className="items-center gap-1 hidden lg:flex">
 					<div className="">{(query.data?.star ?? 0).toFixed(1)}</div>
 					<MtyCircle num={query.data?.star ?? 5} />
 					<div className="underline cursor-pointer">
@@ -34,7 +36,7 @@ export const AdpageAsk = (item: { num: number }) => {
 				</div>
 			</div>
 
-			<div className="flex items-center gap-4 col-span-1 justify-end">
+			<div className="hidden lg:flex items-center gap-4 col-span-1 justify-end">
 				<SaveButton />
 				<ReviewButton />
 			</div>

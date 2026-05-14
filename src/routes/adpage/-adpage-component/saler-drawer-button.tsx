@@ -21,8 +21,8 @@ export const SalerDrawer = () => {
 				}}
 				className="antialiased transform-gpu"
 			>
-				<div className="flex flex-row justify-center p-8">
-					<div className="max-w-200 w-full">
+				<div className="flex flex-row justify-center p-4 lg:p-8">
+					<div className="w-svw lg:max-w-200">
 						<Sidebar />
 					</div>
 				</div>

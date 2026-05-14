@@ -6,7 +6,7 @@ import { MapIcon } from "./svg-icon";
 export const AdPageNav = () => {
 	return (
 		<div className="">
-			<div className="flex border-b gap-5 border-[#fefefe]">
+			<div className="flex border-b gap-5 border-[#fefefe] overflow-x-scroll lg:overflow-x-auto">
 				<NavButton name="Tibet" icon={<MapIcon />} />
 				<NavButton name="Things to Do" />
 				<NavButton name="Hotels" />
@@ -24,7 +24,7 @@ const NavButton = (ctx: { name: string; icon?: React.ReactNode }) => {
 	return (
 		<div
 			className={cn(
-				"flex items-center gap-1 font-semibold text-[#002b11] transition-all duration-200 hover:cursor-pointer py-3",
+				"flex items-center gap-1 font-semibold text-[#002b11] transition-all duration-200 hover:cursor-pointer py-3 text-nowrap",
 				"border-b-2 border-b-transparent! hover:border-b-[#000000]!",
 				ctx.name === "Things to Do" && "border-b-2 border-[#000000]!",
 			)}
