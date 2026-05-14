@@ -29,7 +29,7 @@ function RouteComponent() {
 	const params = Route.useParams();
 	return (
 		<>
-			<div className="grid grid-cols-12 gap-4 max-w-300 mx-auto p-4 md:p-8 lg:py-4 lg:px-2">
+			<div className="grid grid-cols-12 gap-4 max-w-300 mx-auto p-4 md:p-8 ">
 				<div className="col-span-12">
 					<Header />
 				</div>
@@ -42,11 +42,11 @@ function RouteComponent() {
 					<AdpageAsk num={Number(params.pageid)} />
 				</div>
 
-				<div className="col-span-12 lg:col-span-8">
+				<div className="col-span-12 xl:col-span-8">
 					<AnsWer num={Number(params.pageid)} />
 				</div>
 
-				<div className="lg:col-span-4 sticky top-4 h-fit hidden lg:block">
+				<div className="lg:col-span-4 sticky top-4 h-fit hidden xl:block">
 					<Sidebar />
 				</div>
 			</div>

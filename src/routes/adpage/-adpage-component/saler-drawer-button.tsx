@@ -19,7 +19,6 @@ export const SalerDrawer = () => {
 				onCloseAutoFocus={(e) => {
 					e.preventDefault();
 				}}
-				className="antialiased transform-gpu"
 			>
 				<div className="flex flex-row justify-center p-4 lg:p-8">
 					<div className="w-svw lg:max-w-200">
