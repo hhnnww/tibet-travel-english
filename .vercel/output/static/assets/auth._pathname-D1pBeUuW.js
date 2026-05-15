@@ -1,1 +1,0 @@
-import{t as e}from"./jsx-runtime-DBS2Xqfh.js";import{n as t}from"./dist-BIfH809Y.js";import{a as n}from"./index-CITD6L1O.js";var r=e();function i(){let{pathname:e}=n.useParams();return(0,r.jsx)(`div`,{style:{display:`flex`,justifyContent:`center`,alignItems:`center`,minHeight:`100vh`},children:(0,r.jsx)(t,{pathname:e})})}export{i as component};
