@@ -10,7 +10,7 @@ import { Sidebar } from "./-adpage-component/sidebr";
 
 export const Route = createFileRoute("/adpage/$pageid")({
 	component: RouteComponent,
-	loader: async (ctx) => {
+	beforeLoad: async (ctx) => {
 		return await Promise.all([
 			ctx.context.queryClient.ensureQueryData(
 				orpc.adpageWithReplyRoute.get.queryOptions({
