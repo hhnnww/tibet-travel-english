@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { X } from "lucide-react";
 import { Button } from "#/components/ui/button";
 import {
@@ -40,7 +40,9 @@ export const SalerDrawer = () => {
 
 export const XsButton = () => {
 	const { open, setOpen } = useOpenStore();
-	const query = useQuery(orpc.adSalerRoute.current_saler.queryOptions());
+	const query = useSuspenseQuery(
+		orpc.adSalerRoute.current_saler.queryOptions(),
+	);
 	return (
 		<button
 			type="button"
