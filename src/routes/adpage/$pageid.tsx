@@ -12,14 +12,14 @@ export const Route = createFileRoute("/adpage/$pageid")({
 	component: RouteComponent,
 	loader: async (ctx) => {
 		await Promise.all([
-			ctx.context.queryClient.prefetchQuery(
+			ctx.context.queryClient.ensureQueryData(
 				orpc.adpageWithReplyRoute.get.queryOptions({
 					input: {
 						pageid: Number(ctx.params.pageid),
 					},
 				}),
 			),
-			ctx.context.queryClient.prefetchQuery(
+			ctx.context.queryClient.ensureQueryData(
 				orpc.adSalerRoute.current_saler.queryOptions(),
 			),
 		]);
