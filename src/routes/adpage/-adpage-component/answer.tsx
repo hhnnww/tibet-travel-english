@@ -33,7 +33,7 @@ export const AnsWer = (item: { num: number }) => {
 	if (!query.data) return null;
 
 	return (
-		<div className="flex flex-col gap-12">
+		<div className="flex flex-col gap-4 lg:gap-12">
 			{query.data.replies.map((item) => (
 				<AnswerBox key={item.id} item={item} />
 			))}
@@ -61,7 +61,7 @@ const AnswerBox = (item: {
 	};
 
 	return (
-		<div className="grid grid-cols-12 justify-between gap-6 border-b pb-10">
+		<div className="grid grid-cols-12 justify-between gap-6 border-b pb-6 mb-6 lg:pb-10">
 			<div className="flex flex-row items-start justify-between col-span-12">
 				<div className="flex itesm-start gap-4 w-full">
 					<Avatar size="lg">

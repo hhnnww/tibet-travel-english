@@ -15,7 +15,7 @@ export const AdpageAsk = (item: { num: number }) => {
 	const safeHtml = DOMPurify.sanitize(query.data?.content || "");
 
 	return (
-		<div className="grid grid-cols-4 gap-6 items-start justify-between py-8 border-b mb-8">
+		<div className="grid grid-cols-4 gap-6 items-start justify-between lg:py-8 border-b lg:mb-8 mb-4 pb-4">
 			<div className="flex gap-4 flex-col col-span-4 lg:col-span-3">
 				<h1 className="scroll-m-20 text-xl lg:text-3xl font-bold">
 					{query.data?.title}
