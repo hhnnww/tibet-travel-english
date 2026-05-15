@@ -1,30 +1,26 @@
 /** biome-ignore-all lint/security/noDangerouslySetInnerHtml: false positive */
-import { useSuspenseQuery } from "@tanstack/react-query";
+
+import type { InferRouterOutputs } from "@orpc/server";
 import DOMPurify from "isomorphic-dompurify";
-import { orpc } from "#/orpc/client";
+import type { adpageWithReplyRoute } from "#/orpc/router/adpage-reply";
 import { MtyCircle, MtyGoodIcon, MtyInfoIcon } from "./svg-icon";
 
-export const AdpageAsk = (item: { num: number }) => {
-	const query = useSuspenseQuery(
-		orpc.adpageWithReplyRoute.get.queryOptions({
-			input: {
-				pageid: item.num,
-			},
-		}),
-	);
-	const safeHtml = DOMPurify.sanitize(query.data?.content || "");
+export const AdpageAsk = (
+	item: InferRouterOutputs<typeof adpageWithReplyRoute.get>,
+) => {
+	const safeHtml = DOMPurify.sanitize(item?.content || "");
 
 	return (
 		<div className="grid grid-cols-4 gap-6 items-start justify-between py-8 border-b mb-8">
 			<div className="flex gap-4 flex-col col-span-4 lg:col-span-3">
 				<h1 className="scroll-m-20 text-xl lg:text-3xl font-bold">
-					{query.data?.title}
+					{item?.title}
 				</h1>
 				<div className="items-center gap-1 hidden lg:flex">
-					<div className="">{(query.data?.star ?? 0).toFixed(1)}</div>
-					<MtyCircle num={query.data?.star ?? 5} />
+					<div className="">{(item?.star ?? 0).toFixed(1)}</div>
+					<MtyCircle num={item?.star ?? 5} />
 					<div className="underline cursor-pointer">
-						({(query.data?.view ?? 0).toLocaleString()} reviews)
+						({(item?.view ?? 0).toLocaleString()} reviews)
 					</div>
 					<div className="flex items-center ml-4">
 						<MtyGoodIcon />

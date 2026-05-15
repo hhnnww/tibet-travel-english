@@ -11,7 +11,7 @@ import { Sidebar } from "./-adpage-component/sidebr";
 export const Route = createFileRoute("/adpage/$pageid")({
 	component: RouteComponent,
 	loader: async (ctx) => {
-		return await Promise.all([
+		const res = await Promise.all([
 			ctx.context.queryClient.ensureQueryData(
 				orpc.adpageWithReplyRoute.get.queryOptions({
 					input: {
@@ -23,11 +23,15 @@ export const Route = createFileRoute("/adpage/$pageid")({
 				orpc.adSalerRoute.current_saler.queryOptions(),
 			),
 		]);
+
+		return res;
 	},
 });
 
 function RouteComponent() {
 	const params = Route.useParams();
+	const data = Route.useLoaderData();
+	console.log(data);
 	return (
 		<>
 			<div className="grid grid-cols-12 gap-4 max-w-300 mx-auto p-4 md:p-8 ">
@@ -39,9 +43,11 @@ function RouteComponent() {
 					<AdPageNav />
 				</div>
 
-				<div className="col-span-12">
-					<AdpageAsk num={Number(params.pageid)} />
-				</div>
+				{data[0] && (
+					<div className="col-span-12">
+						<AdpageAsk {...data[0]} />
+					</div>
+				)}
 
 				<div className="col-span-12 xl:col-span-8">
 					<AnsWer num={Number(params.pageid)} />
