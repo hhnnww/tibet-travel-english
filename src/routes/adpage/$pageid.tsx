@@ -11,7 +11,7 @@ import { Sidebar } from "./-adpage-component/sidebr";
 export const Route = createFileRoute("/adpage/$pageid")({
 	component: RouteComponent,
 	loader: async (ctx) => {
-		await ctx.context.queryClient.prefetchQuery(
+		await ctx.context.queryClient.ensureQueryData(
 			orpc.adpageWithReplyRoute.get.queryOptions({
 				input: {
 					pageid: Number(ctx.params.pageid),
@@ -19,7 +19,7 @@ export const Route = createFileRoute("/adpage/$pageid")({
 			}),
 		);
 
-		await ctx.context.queryClient.prefetchQuery(
+		await ctx.context.queryClient.ensureQueryData(
 			orpc.adSalerRoute.current_saler.queryOptions(),
 		);
 	},

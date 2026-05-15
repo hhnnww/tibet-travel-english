@@ -1,11 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { Button } from "#/components/ui/button";
 import { orpc } from "#/orpc/client";
 import { useOpenStore } from "./draw-store";
 
 export const BottomButton = () => {
 	const { setOpen } = useOpenStore();
-	const query = useQuery(orpc.adSalerRoute.current_saler.queryOptions());
+	const query = useSuspenseQuery(
+		orpc.adSalerRoute.current_saler.queryOptions(),
+	);
 	return (
 		<div className="fixed bottom-0 left-0 right-0 p-4 flex md:hidden justify-center max-w-svw">
 			{/* left-0 right-0 确保固定定位的容器撑满宽度，否则 mx-auto 无法在全屏范围内居中 */}

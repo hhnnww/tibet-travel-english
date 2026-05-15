@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { Check, Copy, Mail, MessageCircle } from "lucide-react";
 import { useRef, useState } from "react";
 import { Avatar, AvatarImage } from "#/components/ui/avatar";
@@ -15,7 +15,9 @@ import { Input } from "#/components/ui/input";
 import { orpc } from "#/orpc/client";
 
 export const Sidebar = () => {
-	const query = useQuery(orpc.adSalerRoute.current_saler.queryOptions());
+	const query = useSuspenseQuery(
+		orpc.adSalerRoute.current_saler.queryOptions(),
+	);
 	const current_saler = query.data;
 	if (!current_saler) return null;
 
