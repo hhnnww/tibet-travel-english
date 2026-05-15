@@ -10,8 +10,10 @@ import { Sidebar } from "./-adpage-component/sidebr";
 
 export const Route = createFileRoute("/adpage/$pageid")({
 	component: RouteComponent,
+	ssr: true,
+
 	loader: async (ctx) => {
-		await Promise.all([
+		return await Promise.all([
 			ctx.context.queryClient.ensureQueryData(
 				orpc.adpageWithReplyRoute.get.queryOptions({
 					input: {
@@ -24,6 +26,16 @@ export const Route = createFileRoute("/adpage/$pageid")({
 			),
 		]);
 	},
+
+	head: (ctx) => ({
+		meta: [
+			{
+				title:
+					`${ctx.loaderData?.[0]?.title} - ChinaSilkTravel` ||
+					"ChinaSilkTravel",
+			},
+		],
+	}),
 });
 
 function RouteComponent() {

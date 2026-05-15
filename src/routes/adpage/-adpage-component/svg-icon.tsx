@@ -46,8 +46,8 @@ export const MtyLogo = () => {
 	return (
 		<svg
 			viewBox="0 0 561 86"
-			width="561"
-			height="86"
+			width="280"
+			height="43"
 			aria-hidden="true"
 			className="max-w-60"
 		>
