@@ -10,6 +10,11 @@ import { defineConfig } from "vite";
 const config = defineConfig({
 	resolve: { tsconfigPaths: true },
 	plugins: [
+		tanstackStart({
+			prerender: {
+				enabled: false,
+			},
+		}),
 		devtools(),
 		nitro({
 			rollupConfig: { external: [/^@sentry\//] },
@@ -17,7 +22,6 @@ const config = defineConfig({
 			vercel: { entryFormat: "node" },
 		}),
 		tailwindcss(),
-		tanstackStart(),
 		viteReact(),
 	],
 });
