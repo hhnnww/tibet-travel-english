@@ -1,6 +1,7 @@
 /** biome-ignore-all lint/security/noDangerouslySetInnerHtml: false positive */
 
 import type { InferRouterOutputs } from "@orpc/server";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import parse, {
 	type Element,
 	type HTMLReactParserOptions,
@@ -9,7 +10,7 @@ import DOMPurify from "isomorphic-dompurify";
 import type React from "react";
 import { useState } from "react";
 import { Avatar, AvatarImage } from "#/components/ui/avatar";
-import type { adpageWithReplyRoute } from "#/orpc/router/adpage-reply";
+import { orpc } from "#/orpc/client";
 import type { AdReplyRoute } from "#/orpc/router/adreply-route";
 import {
 	AddressIcon,
@@ -21,14 +22,19 @@ import {
 import { XsButton } from "./saler-drawer-button";
 
 // 主组件：根据页面ID获取并渲染回复列表
-export const AnsWer = (
-	item: InferRouterOutputs<typeof adpageWithReplyRoute.get>,
-) => {
-	if (!item) return null;
+export const AnsWer = (item: { num: number }) => {
+	const query = useSuspenseQuery(
+		orpc.adpageWithReplyRoute.get.queryOptions({
+			input: {
+				pageid: item.num,
+			},
+		}),
+	);
+	if (!query.data) return null;
 
 	return (
 		<div className="flex flex-col gap-12">
-			{item.replies.map((item) => (
+			{query.data.replies.map((item) => (
 				<AnswerBox key={item.id} item={item} />
 			))}
 		</div>

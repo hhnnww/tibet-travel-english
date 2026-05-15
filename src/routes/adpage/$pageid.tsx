@@ -11,25 +11,24 @@ import { Sidebar } from "./-adpage-component/sidebr";
 export const Route = createFileRoute("/adpage/$pageid")({
 	component: RouteComponent,
 	loader: async (ctx) => {
-		const res = await Promise.all([
-			ctx.context.queryClient.ensureQueryData(
+		await Promise.all([
+			ctx.context.queryClient.prefetchQuery(
 				orpc.adpageWithReplyRoute.get.queryOptions({
 					input: {
 						pageid: Number(ctx.params.pageid),
 					},
 				}),
 			),
-			ctx.context.queryClient.ensureQueryData(
+			ctx.context.queryClient.prefetchQuery(
 				orpc.adSalerRoute.current_saler.queryOptions(),
 			),
 		]);
-
-		return res;
 	},
 });
 
 function RouteComponent() {
-	const data = Route.useLoaderData();
+	const params = Route.useParams();
+
 	return (
 		<>
 			<div className="grid grid-cols-12 gap-4 max-w-300 mx-auto p-4 md:p-8 ">
@@ -41,17 +40,13 @@ function RouteComponent() {
 					<AdPageNav />
 				</div>
 
-				{data[0] && (
-					<>
-						<div className="col-span-12">
-							<AdpageAsk {...data[0]} />
-						</div>
+				<div className="col-span-12">
+					<AdpageAsk num={Number(params.pageid)} />
+				</div>
 
-						<div className="col-span-12 xl:col-span-8">
-							<AnsWer {...data[0]} />
-						</div>
-					</>
-				)}
+				<div className="col-span-12 xl:col-span-8">
+					<AnsWer num={Number(params.pageid)} />
+				</div>
 
 				<div className="lg:col-span-4 sticky top-4 h-fit hidden xl:block">
 					<Sidebar />
