@@ -29,9 +29,7 @@ export const Route = createFileRoute("/adpage/$pageid")({
 });
 
 function RouteComponent() {
-	const params = Route.useParams();
 	const data = Route.useLoaderData();
-	console.log(data);
 	return (
 		<>
 			<div className="grid grid-cols-12 gap-4 max-w-300 mx-auto p-4 md:p-8 ">
@@ -44,14 +42,16 @@ function RouteComponent() {
 				</div>
 
 				{data[0] && (
-					<div className="col-span-12">
-						<AdpageAsk {...data[0]} />
-					</div>
-				)}
+					<>
+						<div className="col-span-12">
+							<AdpageAsk {...data[0]} />
+						</div>
 
-				<div className="col-span-12 xl:col-span-8">
-					<AnsWer num={Number(params.pageid)} />
-				</div>
+						<div className="col-span-12 xl:col-span-8">
+							<AnsWer {...data[0]} />
+						</div>
+					</>
+				)}
 
 				<div className="lg:col-span-4 sticky top-4 h-fit hidden xl:block">
 					<Sidebar />
