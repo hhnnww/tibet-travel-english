@@ -7,7 +7,7 @@ import { AdPageTable } from "./-adpage/adpage-table";
 export const Route = createFileRoute("/_authLayout/admin/adpage")({
 	component: RouteComponent,
 	loader: async ({ context }) => {
-		context.queryClient.prefetchQuery(
+		return await context.queryClient.prefetchQuery(
 			orpc.adpageRoute.list.queryOptions({ input: {} }),
 		);
 	},

@@ -11,17 +11,18 @@ import { Sidebar } from "./-adpage-component/sidebr";
 export const Route = createFileRoute("/adpage/$pageid")({
 	component: RouteComponent,
 	loader: async (ctx) => {
-		await ctx.context.queryClient.ensureQueryData(
-			orpc.adpageWithReplyRoute.get.queryOptions({
-				input: {
-					pageid: Number(ctx.params.pageid),
-				},
-			}),
-		);
-
-		await ctx.context.queryClient.ensureQueryData(
-			orpc.adSalerRoute.current_saler.queryOptions(),
-		);
+		return await Promise.all([
+			ctx.context.queryClient.ensureQueryData(
+				orpc.adpageWithReplyRoute.get.queryOptions({
+					input: {
+						pageid: Number(ctx.params.pageid),
+					},
+				}),
+			),
+			ctx.context.queryClient.ensureQueryData(
+				orpc.adSalerRoute.current_saler.queryOptions(),
+			),
+		]);
 	},
 });
 
