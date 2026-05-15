@@ -1,7 +1,7 @@
 /** biome-ignore-all lint/security/noDangerouslySetInnerHtml: false positive */
 
 import type { InferRouterOutputs } from "@orpc/server";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import parse, {
 	type Element,
 	type HTMLReactParserOptions,
@@ -23,7 +23,7 @@ import { XsButton } from "./saler-drawer-button";
 
 // 主组件：根据页面ID获取并渲染回复列表
 export const AnsWer = (item: { num: number }) => {
-	const query = useQuery(
+	const query = useSuspenseQuery(
 		orpc.adpageWithReplyRoute.get.queryOptions({
 			input: {
 				pageid: item.num,

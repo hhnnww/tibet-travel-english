@@ -1,11 +1,11 @@
 /** biome-ignore-all lint/security/noDangerouslySetInnerHtml: false positive */
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import DOMPurify from "isomorphic-dompurify";
 import { orpc } from "#/orpc/client";
 import { MtyCircle, MtyGoodIcon, MtyInfoIcon } from "./svg-icon";
 
 export const AdpageAsk = (item: { num: number }) => {
-	const query = useQuery(
+	const query = useSuspenseQuery(
 		orpc.adpageWithReplyRoute.get.queryOptions({
 			input: {
 				pageid: item.num,

@@ -79,8 +79,10 @@ export const adSalerRoute = {
 			now.getMonth(),
 			now.getDate(),
 		).getTime();
-		const minuteIndex = Math.floor((now.getTime() - startOfDay) / (1000 * 60));
-		const index = minuteIndex % salers.length;
+		const hourIndex = Math.floor(
+			(now.getTime() - startOfDay) / (1000 * 60 * 60),
+		);
+		const index = hourIndex % salers.length;
 		return salers[index];
 	}),
 };
