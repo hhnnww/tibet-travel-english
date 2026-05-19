@@ -14,7 +14,7 @@ import { Sidebar } from "./sidebr";
 export const SalerDrawer = () => {
 	const { open, setOpen } = useOpenStore();
 	return (
-		<Drawer open={open} onOpenChange={setOpen}>
+		<Drawer open={open} onOpenChange={setOpen} direction="right">
 			<DrawerContent
 				onCloseAutoFocus={(e) => {
 					e.preventDefault();
